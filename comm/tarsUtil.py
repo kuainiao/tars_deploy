@@ -7,6 +7,7 @@ import tarsLog
 import socket
 import fcntl
 import struct
+import os
 
 log = tarsLog.getLogger()
 def getIpAddress(ifname):
@@ -21,7 +22,7 @@ def getLocalIp():
     return getIpAddress("eth0")
 
 def getAbabsolutePath():
-    path = os.path.split(os.path.realpath(__file__))[0];
+    path = os.path.abspath(os.path.join(os.getcwd(), "../.."))
     return path
 
 def doCmd(cmd):
