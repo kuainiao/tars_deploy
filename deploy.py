@@ -20,5 +20,5 @@ def test():
     return
 
 if __name__ == '__main__':
-    print(tarsBuild.do())
+    tarsDeploy.do()
     pass

@@ -5,6 +5,7 @@ from tarsUtil import *
 
 log = tarsLog.getLogger()
 def do():
+    log.info("deploy start ...")
 
     return
 
