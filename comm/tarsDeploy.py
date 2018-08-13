@@ -24,9 +24,9 @@ def initDB():
     log.info(" the mysqlHost is {} , mysqlPort is {},  mysqlRootPassWord is {}".format(mysqlHost,mysqlPort,mysqlRootPassWord))
     doCmd("sed -i 's/192.168.2.131/{}/g' {}/db_tars.sql".format(localIp,dbDir))
     doCmd("sed -i 's/db.tars.com/{}/g' {}/db_tars.sql".format(localIp,dbDir))
-    doCmd("sed -i 's/192.168.2.131/{}/g' `grep 192.168.2.131 -rl ./*`".format(localIp))
-    doCmd("sed -i 's/db.tars.com/{}/g' `grep db.tars.com -rl ./*`".format(localIp))
-    doCmd("sed -i 's/10.120.129.226/{}/g' `grep 10.120.129.226 -rl ./*`".format(localIp))
+    doCmd("sed -i 's/192.168.2.131/{}/g' `grep 192.168.2.131 -rl {}/*`".format(localIp))
+    doCmd("sed -i 's/db.tars.com/{}/g' `grep db.tars.com -rl {}/*`".format(localIp))
+    doCmd("sed -i 's/10.120.129.226/{}/g' `grep 10.120.129.226 -rl {}/*`".format(localIp))
 
     doCmd("mysql -utars -ptars2015 -e 'create database db_tars'")
     doCmd("mysql -utars -ptars2015 -e 'create database tars_stat'")
