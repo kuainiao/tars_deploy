@@ -1,0 +1,205 @@
+TARS 安装
+
+
+----------------------------------------------------------基础环境安装--------------------------------------------------
+yum install  -y gcc
+
+yum install  -y gcc-c++
+
+yum install -y  yasm
+
+yum install -y  glibc-devel
+
+yum install -y  flex
+
+yum install -y  bison
+
+yum install -y cmake
+
+yum install -y ncurses-devel
+
+yum install -y zlib-devel
+
+yum -y install autoconf
+
+#yum install -y mysql-devel
+
+yum -y install git
+
+
+安装mysql
+
+
+
+---------------------------------------------------下载源代码----------------------------------------
+
+git clone https://github.com/Tencent/Tars.git  /data/Tars
+
+git clone https://github.com/Tencent/rapidjson.git  /data/Tars/cpp/thirdparty/rapidjson
+
+
+-------------------------------------------------安装包的更新----------------------------------------------------------------------------------------
+
+\cp -r /data/Tars_add/tars*/  /data/Tars/cpp/framework/deploy/
+
+ 
+mkdir -p /usr/local/app/
+
+cp -rf /data/Tars_add/resin   /usr/local/app/
+
+
+\cp -rf /data/Tars_add/db/*  /data/Tars/cpp/framework/sql
+
+--------------------------------------------------生成安装文件-----------------------------
+
+cd /data/Tars/cpp/build
+
+./build.sh cleanall
+./build.sh all
+
+---------------------------------------------------搭建C++开发环境------------------------------------------------
+
+mkdir -p  /usr/local/tars
+
+cd /data/Tars/cpp/build/  
+./build.sh install 
+
+
+----------------------------------------------------生成框架部署包----------------------------------------------------------------------------------------------
+
+cd /data/Tars/cpp/build
+
+make framework-tar 
+
+make tarsstat-tar
+make tarsnotify-tar
+make tarsproperty-tar
+make tarslog-tar
+make tarsquerystat-tar
+make tarsqueryproperty-tar
+
+-----------------------------------------------------初始化DB-----------------------------------------------------------------------------
+
+#SET PASSWORD FOR 'root'@'localhost' = PASSWORD('tars12345');
+
+grant all on *.* to 'tars'@'%' identified by 'tars2015' with grant option;
+grant all on *.* to 'tars'@'localhost' identified by 'tars2015' with grant option;
+flush privileges;
+
+ 
+
+cd /data/Tars/cpp/framework/sql
+
+
+mysql -uroot -ptars12345 -e "create database db_tars"
+mysql -uroot -ptars12345 -e "create database tars_stat"
+mysql -uroot -ptars12345 -e "create database tars_property"
+
+部署IP  172.16.0.2
+
+sed -i "s/192.168.2.131/${deploy_ip}/g" `grep 192.168.2.131 -rl ./*`
+sed -i "s/db.tars.com/${deploy_ip}/g" `grep db.tars.com -rl ./*`
+sed -i "s/10.120.129.226/${deploy_ip}/g" `grep 10.120.129.226 -rl ./*`
+
+
+
+
+
+mysql -uroot -ptars12345 db_tars < db_tars.sql
+ 
+mysql -uroot -ptars12345 db_tars < tarsconfig.sql
+mysql -uroot -ptars12345 db_tars < tarslog.sql
+mysql -uroot -ptars12345 db_tars < tarspatch.sql
+mysql -uroot -ptars12345 db_tars < tarsproperty.sql
+mysql -uroot -ptars12345 db_tars < tarsqueryproperty.sql
+mysql -uroot -ptars12345 db_tars < tarsquerystat.sql
+mysql -uroot -ptars12345 db_tars < tarsstat.sql
+
+
+
+---------------------------------------------------部署框架服务-------------------------------------------------------------------
+
+mkdir -p /usr/local/app/tars
+
+
+//拷贝二进制包
+cp -rf /data/Tars/cpp/build/framework/deploy/tars*  /usr/local/app/tars/
+
+cp -rf /data/Tars/cpp/build/framework/deploy/tarsregistry   /usr/local/app/tars/
+cp -rf /data/Tars/cpp/build/framework/deploy/tarsAdminRegistry   /usr/local/app/tars/
+cp -rf /data/Tars/cpp/build/framework/deploy/tarsnode     /usr/local/app/tars/
+cp -rf /data/Tars/cpp/build/framework/deploy/tarsconfig   /usr/local/app/tars/
+cp -rf  /data/Tars/cpp/build/framework/deploy/tarsnotify   /usr/local/app/tars/
+cp -rf /data/Tars/cpp/build/framework/deploy/tarspatch   /usr/local/app/tars/
+cp -rf /data/Tars/cpp/build/framework/deploy/tarsstat   /usr/local/app/tars/
+cp -rf /data/Tars/cpp/build/framework/deploy/tarsproperty   /usr/local/app/tars/
+cp -rf /data/Tars/cpp/build/framework/deploy/tarsquerystat   /usr/local/app/tars/
+cp -rf /data/Tars/cpp/build/framework/deploy/tarsqueryproperty   /usr/local/app/tars/
+cp -rf /data/Tars/cpp/build/framework/deploy/tarslog   /usr/local/app/tars/
+
+
+//拷贝配置文件
+cp -rf /data/Tars/cpp/framework/deploy/tars* /usr/local/app/tars/
+
+//纠正部署目录
+mkdir -p /usr/local/app/tars/tarsauth/bin;mv /usr/local/app/tars/tarsauth/tarsauth /usr/local/app/tars/tarsauth/bin/;
+mkdir -p /usr/local/app/tars/tarslog/bin;mv /usr/local/app/tars/tarslog/tarslog /usr/local/app/tars/tarslog/bin/;
+mkdir -p /usr/local/app/tars/tarsnotify/bin;mv /usr/local/app/tars/tarsnotify/tarsnotify /usr/local/app/tars/tarsnotify/bin/;
+mkdir -p /usr/local/app/tars/tarsproperty/bin;mv /usr/local/app/tars/tarsproperty/tarsproperty /usr/local/app/tars/tarsproperty/bin/;
+mkdir -p /usr/local/app/tars/tarsqueryproperty/bin;mv /usr/local/app/tars/tarsqueryproperty/tarsqueryproperty /usr/local/app/tars/tarsqueryproperty/bin/;
+mkdir -p /usr/local/app/tars/tarsquerystat/bin;mv /usr/local/app/tars/tarsquerystat/tarsquerystat  /usr/local/app/tars/tarsquerystat/bin;
+mkdir -p /usr/local/app/tars/tarsstat/bin;mv /usr/local/app/tars/tarsstat/tarsstat /usr/local/app/tars/tarsstat/bin/;
+
+ //配置文件更新,主要更新主控地址，DB地址 信息
+
+部署IP  172.16.0.2
+
+
+cd /usr/local/app/tars
+
+sed -i "s/localip.tars.com/${deploy_ip}/g" `grep localip.tars.com -rl ./*`
+sed -i "s/192.168.2.131/${deploy_ip}/g" `grep 192.168.2.131 -rl ./*`
+sed -i "s/db.tars.com/${deploy_ip}/g" `grep db.tars.com -rl ./*`
+sed -i "s/registry.tars.com/${deploy_ip}/g" `grep registry.tars.com -rl ./*`
+sed -i "s/web.tars.com/${deploy_ip}/g" `grep web.tars.com -rl ./*`
+sed -i "s/10.120.129.226/${deploy_ip}/g" `grep 10.120.129.226 -rl ./*`
+
+cd /usr/local/app/resin
+sed -i "s/registry.tars.com/${deploy_ip}/g" `grep registry.tars.com -rl ./*`
+sed -i "s/db.tars.com/${deploy_ip}/g" `grep db.tars.com -rl ./*`
+
+
+
+// 启动服务
+
+if [ ! -d /usr/local/app/tars/app_log ]; then
+    mkdir -p /data/log/tars
+    mkdir -p /usr/local/app/tars
+    mkdir -p /data/tars/app_log
+    ln -s /data/tars/app_log /usr/local/app/tars/app_log
+fi
+
+if [ ! -d /usr/local/app/tars/remote_app_log ]; then
+    mkdir -p /data/tars/remote_app_log
+    ln -s /data/tars/remote_app_log /usr/local/app/tars/remote_app_log
+fi
+
+cd /usr/local/app/tars/
+find /usr/local/app/tars/  -name '*.sh'| xargs chmod u+x
+find /usr/local/app/tars/  -name 'start.sh'|bash
+
+cd /usr/local/app/resin
+chmod u+x /usr/local/app/resin/bin/resin.sh
+/usr/local/app/resin/bin/resin.sh start
+
+
+http://139.199.59.222:8080
+-----------------------------------------------部署管理平台------------------------------------------------------------------------
+
+mkdir -p /usr/local/app/patchs/tars.upload/
+
+wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+
+nvm install v8.11.3
+
+
