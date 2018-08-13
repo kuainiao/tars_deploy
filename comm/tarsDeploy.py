@@ -6,11 +6,13 @@ from tarsUtil import *
 log = tarsLog.getLogger()
 def do():
     log.info("deploy start ...")
-
+    dbDir = getDBDir()
+    log.info("dbDir is {}".format(dbDir))
     return
 
 def getDBDir():
     dir = getAbabsolutePath()
+    dbDir = dir+"../../"
     return
 
 def initDB():
