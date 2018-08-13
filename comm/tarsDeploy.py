@@ -19,7 +19,7 @@ def initDB():
     mysqlPort = getCommProperties("mysql.port")
     mysqlRootPassWord = getCommProperties("mysql.root.password")
     localIp = getLocalIp()
-    log.info(" dbDir is{} , mysqlHost is {} , mysqlPort is {} mysqlRootPassWord is {} ".format(dbDir,mysqlHost,mysqlPort,mysqlRootPasWord,localIp))
+    log.info(" dbDir is{} , mysqlHost is {} , mysqlPort is {} mysqlRootPassWord is {} ,localIp is {} ".format(dbDir,mysqlHost,mysqlPort,mysqlRootPasWord,localIp))
     doCmd("mysql -uroot -p{}  -e \"grant all on *.* to 'tars'@'%' identified by 'tars2015' with grant option;flush privileges;\"".format(mysqlRootPassWord))
     log.info(" the mysqlHost is {} , mysqlPort is {},  mysqlRootPassWord is {}".format(mysqlHost,mysqlPort,mysqlRootPassWord))
     doCmd("sed -i 's/192.168.2.131/{}/g' {}/db_tars.sql".format(localIp,dbDir))
