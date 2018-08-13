@@ -5,9 +5,7 @@ from tarsUtil import *
 
 log = tarsLog.getLogger()
 def do():
-    log.info("deploy start ...")
-    dbDir = getDBDir()
-    log.info("dbDir is {}".format(dbDir))
+    initDB()
     return
 
 def getDBDir():
