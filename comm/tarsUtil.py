@@ -21,7 +21,7 @@ def getIpAddress(ifname):
 def getLocalIp():
     return getIpAddress("eth0")
 
-def getAbabsolutePath():
+def getBaseDir():
     cwd = os.getcwd()
     log.info("  os.getcwd() is {}".format(cwd))
     path = os.path.abspath(os.path.join(os.getcwd(), ".."))
@@ -48,8 +48,9 @@ def doCmdIgnoreException(cmd):
     return result
 
 def getCommProperties(paramsKey):
+    baseDir = getBaseDir()
     cf = ConfigParser.ConfigParser()
-    cf.read("/data/tars/commconf/comm.properties")
+    cf.read(baseDir+"/comm.properties")
     cf.sections()
     value = cf.get('tarscomm', paramsKey)
     return value

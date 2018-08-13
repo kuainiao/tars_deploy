@@ -9,8 +9,8 @@ def do():
     return
 
 def getDBDir():
-    dir = getAbabsolutePath()
-    dbDir = dir+"/cpp/framework/sql/"
+    baseDir = getBaseDir()
+    dbDir = baseDir+"/cpp/framework/sql/"
     return dbDir
 
 def initDB():
