@@ -3,7 +3,7 @@
 
 import ConfigParser
 import commands
-import log as tarsLog
+import tarsLog
 import socket
 import fcntl
 import struct
