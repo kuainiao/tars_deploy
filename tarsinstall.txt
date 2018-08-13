@@ -1,7 +1,7 @@
-TARS °²×°
+TARS å®‰è£…
 
 
-----------------------------------------------------------»ù´¡»·¾³°²×°--------------------------------------------------
+----------------------------------------------------------åŸºç¡€ç¯å¢ƒå®‰è£…--------------------------------------------------
 yum install  -y gcc
 
 yum install  -y gcc-c++
@@ -27,18 +27,18 @@ yum -y install autoconf
 yum -y install git
 
 
-°²×°mysql
+å®‰è£…mysql
 
 
 
----------------------------------------------------ÏÂÔØÔ´´úÂë----------------------------------------
+---------------------------------------------------ä¸‹è½½æºä»£ç ----------------------------------------
 
 git clone https://github.com/Tencent/Tars.git  /data/Tars
 
 git clone https://github.com/Tencent/rapidjson.git  /data/Tars/cpp/thirdparty/rapidjson
 
 
--------------------------------------------------°²×°°üµÄ¸üĞÂ----------------------------------------------------------------------------------------
+-------------------------------------------------å®‰è£…åŒ…çš„æ›´æ–°----------------------------------------------------------------------------------------
 
 \cp -r /data/Tars_add/tars*/  /data/Tars/cpp/framework/deploy/
 
@@ -50,14 +50,14 @@ cp -rf /data/Tars_add/resin   /usr/local/app/
 
 \cp -rf /data/Tars_add/db/*  /data/Tars/cpp/framework/sql
 
---------------------------------------------------Éú³É°²×°ÎÄ¼ş-----------------------------
+--------------------------------------------------ç”Ÿæˆå®‰è£…æ–‡ä»¶-----------------------------
 
 cd /data/Tars/cpp/build
 
 ./build.sh cleanall
 ./build.sh all
 
----------------------------------------------------´î½¨C++¿ª·¢»·¾³------------------------------------------------
+---------------------------------------------------æ­å»ºC++å¼€å‘ç¯å¢ƒ------------------------------------------------
 
 mkdir -p  /usr/local/tars
 
@@ -65,7 +65,7 @@ cd /data/Tars/cpp/build/
 ./build.sh install 
 
 
-----------------------------------------------------Éú³É¿ò¼Ü²¿Êğ°ü----------------------------------------------------------------------------------------------
+----------------------------------------------------ç”Ÿæˆæ¡†æ¶éƒ¨ç½²åŒ…----------------------------------------------------------------------------------------------
 
 cd /data/Tars/cpp/build
 
@@ -78,7 +78,7 @@ make tarslog-tar
 make tarsquerystat-tar
 make tarsqueryproperty-tar
 
------------------------------------------------------³õÊ¼»¯DB-----------------------------------------------------------------------------
+-----------------------------------------------------åˆå§‹åŒ–DB-----------------------------------------------------------------------------
 
 #SET PASSWORD FOR 'root'@'localhost' = PASSWORD('tars12345');
 
@@ -95,7 +95,7 @@ mysql -uroot -ptars12345 -e "create database db_tars"
 mysql -uroot -ptars12345 -e "create database tars_stat"
 mysql -uroot -ptars12345 -e "create database tars_property"
 
-²¿ÊğIP  172.16.0.2
+éƒ¨ç½²IP  172.16.0.2
 
 sed -i "s/192.168.2.131/${deploy_ip}/g" `grep 192.168.2.131 -rl ./*`
 sed -i "s/db.tars.com/${deploy_ip}/g" `grep db.tars.com -rl ./*`
@@ -117,12 +117,12 @@ mysql -uroot -ptars12345 db_tars < tarsstat.sql
 
 
 
----------------------------------------------------²¿Êğ¿ò¼Ü·şÎñ-------------------------------------------------------------------
+---------------------------------------------------éƒ¨ç½²æ¡†æ¶æœåŠ¡-------------------------------------------------------------------
 
 mkdir -p /usr/local/app/tars
 
 
-//¿½±´¶ş½øÖÆ°ü
+//æ‹·è´äºŒè¿›åˆ¶åŒ…
 cp -rf /data/Tars/cpp/build/framework/deploy/tars*  /usr/local/app/tars/
 
 cp -rf /data/Tars/cpp/build/framework/deploy/tarsregistry   /usr/local/app/tars/
@@ -138,10 +138,10 @@ cp -rf /data/Tars/cpp/build/framework/deploy/tarsqueryproperty   /usr/local/app/
 cp -rf /data/Tars/cpp/build/framework/deploy/tarslog   /usr/local/app/tars/
 
 
-//¿½±´ÅäÖÃÎÄ¼ş
+//æ‹·è´é…ç½®æ–‡ä»¶
 cp -rf /data/Tars/cpp/framework/deploy/tars* /usr/local/app/tars/
 
-//¾ÀÕı²¿ÊğÄ¿Â¼
+//çº æ­£éƒ¨ç½²ç›®å½•
 mkdir -p /usr/local/app/tars/tarsauth/bin;mv /usr/local/app/tars/tarsauth/tarsauth /usr/local/app/tars/tarsauth/bin/;
 mkdir -p /usr/local/app/tars/tarslog/bin;mv /usr/local/app/tars/tarslog/tarslog /usr/local/app/tars/tarslog/bin/;
 mkdir -p /usr/local/app/tars/tarsnotify/bin;mv /usr/local/app/tars/tarsnotify/tarsnotify /usr/local/app/tars/tarsnotify/bin/;
@@ -150,9 +150,9 @@ mkdir -p /usr/local/app/tars/tarsqueryproperty/bin;mv /usr/local/app/tars/tarsqu
 mkdir -p /usr/local/app/tars/tarsquerystat/bin;mv /usr/local/app/tars/tarsquerystat/tarsquerystat  /usr/local/app/tars/tarsquerystat/bin;
 mkdir -p /usr/local/app/tars/tarsstat/bin;mv /usr/local/app/tars/tarsstat/tarsstat /usr/local/app/tars/tarsstat/bin/;
 
- //ÅäÖÃÎÄ¼ş¸üĞÂ,Ö÷Òª¸üĞÂÖ÷¿ØµØÖ·£¬DBµØÖ· ĞÅÏ¢
+ //é…ç½®æ–‡ä»¶æ›´æ–°,ä¸»è¦æ›´æ–°ä¸»æ§åœ°å€ï¼ŒDBåœ°å€ ä¿¡æ¯
 
-²¿ÊğIP  172.16.0.2
+éƒ¨ç½²IP  172.16.0.2
 
 
 cd /usr/local/app/tars
@@ -170,7 +170,7 @@ sed -i "s/db.tars.com/${deploy_ip}/g" `grep db.tars.com -rl ./*`
 
 
 
-// Æô¶¯·şÎñ
+// å¯åŠ¨æœåŠ¡
 
 if [ ! -d /usr/local/app/tars/app_log ]; then
     mkdir -p /data/log/tars
@@ -194,7 +194,7 @@ chmod u+x /usr/local/app/resin/bin/resin.sh
 
 
 http://139.199.59.222:8080
------------------------------------------------²¿Êğ¹ÜÀíÆ½Ì¨------------------------------------------------------------------------
+-----------------------------------------------éƒ¨ç½²ç®¡ç†å¹³å°------------------------------------------------------------------------
 
 mkdir -p /usr/local/app/patchs/tars.upload/
 

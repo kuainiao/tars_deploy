@@ -1,0 +1,56 @@
+#!/usr/bin/python
+# encoding: utf-8
+
+import ConfigParser
+import commands
+import log as tarsLog
+import socket
+import fcntl
+import struct
+
+log = tarsLog.getLogger()
+def getIpAddress(ifname):
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    return socket.inet_ntoa(fcntl.ioctl(
+        s.fileno(),
+        0x8915,  # SIOCGIFADDR
+        struct.pack('256s', ifname[:15])
+    )[20:24])
+
+def getLocalIp():
+    return getIpAddress("eth0")
+
+def getAbabsolutePath():
+    path = os.path.split(os.path.realpath(__file__))[0];
+    return path
+
+def doCmd(cmd):
+    log.info(" execute cmd  start ,cmd : {}".format(cmd))
+    result = dict()
+    (status, output) = commands.getstatusoutput(cmd)
+    result["status"] = status
+    result["output"] = output
+    log.info(" execute cmd  end ,cmd : {},status :{} , output: {}".format(cmd,status,output))
+    if (0 != status):
+        raise Exception("execute cmd  error ,cmd : {}, status is {} ,output is {}".format(cmd,status, output))
+    return result
+
+def doCmdIgnoreException(cmd):
+    log.info(" execute cmd  start ,cmd : {}".format(cmd))
+    result = dict()
+    (status, output) = commands.getstatusoutput(cmd)
+    result["status"] = status
+    result["output"] = output
+    log.info(" execute cmd  end ,cmd : {},status :{} , output: {}".format(cmd, status, output))
+    return result
+
+def getCommProperties(paramsKey):
+    cf = ConfigParser.ConfigParser()
+    cf.read("/data/tars/commconf/comm.properties")
+    cf.sections()
+    value = cf.get('tarscomm', paramsKey)
+    return value
+
+if __name__ == '__main__':
+    print(getIpAddress("eth0"))
+    pass
