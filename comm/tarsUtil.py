@@ -24,7 +24,7 @@ def getLocalIp():
 def getAbabsolutePath():
     cwd = os.getcwd()
     log.info("  os.getcwd() is {}".format(cwd))
-    path = os.path.abspath(os.path.join(os.getcwd(), "../.."))
+    path = os.path.abspath(os.path.join(os.getcwd(), ".."))
     return path
 
 def doCmd(cmd):
