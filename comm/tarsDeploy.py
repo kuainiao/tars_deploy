@@ -39,12 +39,12 @@ def deployFrameServer():
     doCmd("mkdir -p /usr/local/app/tars/tarsquerystat/bin;mv /usr/local/app/tars/tarsquerystat/tarsquerystat  /usr/local/app/tars/tarsquerystat/bin")
     doCmd("mkdir -p /usr/local/app/tars/tarsstat/bin;mv /usr/local/app/tars/tarsstat/tarsstat /usr/local/app/tars/tarsstat/bin/")
 
-    doCmd("sed -i 's/localip.tars.com/{}/g' /usr/local/app/tars/*.conf".format(localIp))
-    doCmd("sed -i 's/192.168.2.131/{}/g' /usr/local/app/tars/*.conf".format(localIp))
-    doCmd("sed -i 's/db.tars.com/{}/g' /usr/local/app/tars/*.conf".format(localIp))
-    doCmd("sed -i 's/registry.tars.com/{}/g' /usr/local/app/tars/*.conf".format(localIp))
-    doCmd("sed -i 's/web.tars.com/{}/g' /usr/local/app/tars/*.conf".format(localIp))
-    doCmd("sed -i 's/10.120.129.226/{}/g' /usr/local/app/tars/*.conf".format(localIp))
+    doCmd("sed -i 's/localip.tars.com/{}/g' /usr/local/app/tars/*".format(localIp))
+    doCmd("sed -i 's/192.168.2.131/{}/g' /usr/local/app/tars/*".format(localIp))
+    doCmd("sed -i 's/db.tars.com/{}/g' /usr/local/app/tars/*".format(localIp))
+    doCmd("sed -i 's/registry.tars.com/{}/g' /usr/local/app/tars/*".format(localIp))
+    doCmd("sed -i 's/web.tars.com/{}/g' /usr/local/app/tars/*".format(localIp))
+    doCmd("sed -i 's/10.120.129.226/{}/g' /usr/local/app/tars/*".format(localIp))
 
     doCmd("sed -i 's/registry.tars.com/{}/g' `grep registry.tars.com -rl /usr/local/app/resin/webapps/ROOT/WEB-INF/classes/*`".format(localIp))
     doCmd("sed -i 's/db.tars.com/{}/g' `grep db.tars.com -rl /usr/local/app/resin/webapps/ROOT/WEB-INF/classes/*`".format(mysqlHost))
