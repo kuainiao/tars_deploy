@@ -5,13 +5,55 @@ from tarsUtil import *
 
 log = tarsLog.getLogger()
 def do():
-    initDB()
+    #initDB()
+    deployFrameServer()
     return
 
 def getDBDir():
     baseDir = getBaseDir()
     dbDir = baseDir+"/cpp/framework/sql/"
     return dbDir
+
+def deployFrameServer():
+    mysqlHost = getCommProperties("mysql.host")
+    localIp = getLocalIp()
+    doCmd("mkdir -p /usr/local/app/tars")
+    doCmd("cp -rf /data/Tars/cpp/build/framework/deploy/tars* /usr/local/app/tars/")
+    doCmd("cp -rf /data/Tars/cpp/build/framework/deploy/tarsregistry /usr/local/app/tars/")
+    doCmd("cp -rf /data/Tars/cpp/build/framework/deploy/tarsAdminRegistry /usr/local/app/tars/")
+    doCmd("cp -rf /data/Tars/cpp/build/framework/deploy/tarsnode /usr/local/app/tars/")
+    doCmd("cp -rf /data/Tars/cpp/build/framework/deploy/tarsconfig /usr/local/app/tars/")
+    doCmd("cp -rf  /data/Tars/cpp/build/framework/deploy/tarsnotify /usr/local/app/tars/")
+    doCmd("cp -rf /data/Tars/cpp/build/framework/deploy/tarspatch /usr/local/app/tars/")
+    doCmd("cp -rf /data/Tars/cpp/build/framework/deploy/tarsstat /usr/local/app/tars/")
+    doCmd("cp -rf /data/Tars/cpp/build/framework/deploy/tarsproperty /usr/local/app/tars/")
+    doCmd("cp -rf /data/Tars/cpp/build/framework/deploy/tarsquerystat /usr/local/app/tars/")
+    doCmd("cp -rf /data/Tars/cpp/build/framework/deploy/tarsqueryproperty /usr/local/app/tars/")
+    doCmd("cp -rf /data/Tars/cpp/build/framework/deploy/tarslog /usr/local/app/tars/")
+    doCmd("cp -rf /data/Tars/cpp/framework/deploy/tars* /usr/local/app/tars/")
+    doCmd("mkdir -p /usr/local/app/tars/tarsauth/bin;mv /usr/local/app/tars/tarsauth/tarsauth /usr/local/app/tars/tarsauth/bin/")
+    doCmd("mkdir -p /usr/local/app/tars/tarslog/bin;mv /usr/local/app/tars/tarslog/tarslog /usr/local/app/tars/tarslog/bin/")
+    doCmd("mkdir -p /usr/local/app/tars/tarsnotify/bin;mv /usr/local/app/tars/tarsnotify/tarsnotify /usr/local/app/tars/tarsnotify/bin/")
+    doCmd("mkdir -p /usr/local/app/tars/tarsproperty/bin;mv /usr/local/app/tars/tarsproperty/tarsproperty /usr/local/app/tars/tarsproperty/bin/")
+    doCmd("mkdir -p /usr/local/app/tars/tarsqueryproperty/bin;mv /usr/local/app/tars/tarsqueryproperty/tarsqueryproperty /usr/local/app/tars/tarsqueryproperty/bin/")
+    doCmd("mkdir -p /usr/local/app/tars/tarsquerystat/bin;mv /usr/local/app/tars/tarsquerystat/tarsquerystat  /usr/local/app/tars/tarsquerystat/bin")
+    doCmd("mkdir -p /usr/local/app/tars/tarsstat/bin;mv /usr/local/app/tars/tarsstat/tarsstat /usr/local/app/tars/tarsstat/bin/")
+
+    doCmd("sed -i 's/localip.tars.com/{}/g' /usr/local/app/tars/*".format(localIp))
+    doCmd("sed -i 's/192.168.2.131/{}/g' /usr/local/app/tars/*".format(localIp))
+    doCmd("sed -i 's/db.tars.com/{}/g' /usr/local/app/tars/*".format(localIp))
+    doCmd("sed -i 's/registry.tars.com/{}/g' /usr/local/app/tars/*".format(localIp))
+    doCmd("sed -i 's/web.tars.com/{}/g' /usr/local/app/tars/*".format(localIp))
+    doCmd("sed -i 's/10.120.129.226/{}/g' /usr/local/app/tars/*".format(localIp))
+
+    doCmd("sed -i 's/registry.tars.com/{}/g' /usr/local/app/resin/*".format(localIp))
+    doCmd("sed -i 's/db.tars.com/{}/g' /usr/local/app/resin/*".format(mysqlHost))
+
+    doCmd("find /usr/local/app/tars/  -name '*.sh'| xargs chmod u+x")
+    doCmd("find /usr/local/app/tars/  -name 'start.sh'|bash")
+    doCmd("chmod u+x /usr/local/app/resin/bin/resin.sh")
+    doCmd("/usr/local/app/resin/bin/resin.sh start")
+    return
 
 def initDB():
     dbDir=getDBDir()
@@ -40,9 +82,7 @@ def initDB():
     doCmd("mysql -utars -ptars2015 db_tars < {}/tarsqueryproperty.sql".format(dbDir))
     doCmd("mysql -utars -ptars2015 db_tars < {}/tarsquerystat.sql".format(dbDir))
     doCmd("mysql -utars -ptars2015 db_tars < {}/tarsstat.sql".format(dbDir))
-
     return
-
 
 if __name__ == '__main__':
     pass

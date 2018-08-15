@@ -166,7 +166,7 @@ sed -i "s/10.120.129.226/${deploy_ip}/g" /usr/local/app/tars/*
 
 cd /usr/local/app/resin
 sed -i "s/registry.tars.com/${deploy_ip}/g" /usr/local/app/resin/*
-sed -i "s/db.tars.com/${deploy_ip}/g" /usr/local/app/resin/*
+sed -i "s/db.tars.com/${deploy_ip}/g" /usr/local/app/resin
 
 
 
