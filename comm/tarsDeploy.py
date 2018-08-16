@@ -7,6 +7,7 @@ log = tarsLog.getLogger()
 def do():
     initDB()
     deployFrameServer()
+    deployWeb()
     return
 
 def getDBDir():
@@ -41,19 +42,24 @@ def deployFrameServer():
 
     doCmd("sed -i 's/localip.tars.com/{}/g' `find /usr/local/app/tars -name *.conf`".format(localIp))
     doCmd("sed -i 's/192.168.2.131/{}/g' `find /usr/local/app/tars -name *.conf`".format(localIp))
-    doCmd("sed -i 's/db.tars.com/{}/g' `find /usr/local/app/tars -name *.conf`".format(localIp))
+    doCmd("sed -i 's/db.tars.com/{}/g' `find /usr/local/app/tars -name *.conf`".format(mysqlHost))
     doCmd("sed -i 's/registry.tars.com/{}/g' `find /usr/local/app/tars -name *.conf`".format(localIp))
     doCmd("sed -i 's/registry.tars.com/{}/g' `find /usr/local/app/tars -name *.sh`".format(localIp))
     doCmd("sed -i 's/web.tars.com/{}/g' `find /usr/local/app/tars -name *.conf`".format(localIp))
     doCmd("sed -i 's/10.120.129.226/{}/g' `find /usr/local/app/tars -name *.conf`".format(localIp))
 
+    doCmd("find /usr/local/app/tars/  -name '*.sh'| xargs chmod u+x")
+    doCmd("find /usr/local/app/tars/  -name 'start.sh'|bash")
+
+    return
+
+def deployWeb():
+    mysqlHost = getCommProperties("mysql.host")
+    localIp = getLocalIp()
     doCmd("sed -i 's/registry.tars.com/{}/g' /usr/local/app/resin/webapps/ROOT/WEB-INF/classes/tars.conf".format(localIp))
     doCmd("sed -i 's/registry.tars.com/{}/g' /usr/local/app/resin/webapps/ROOT/WEB-INF/classes/app.config.properties".format(localIp))
     doCmd("sed -i 's/db.tars.com/{}/g' /usr/local/app/resin/webapps/ROOT/WEB-INF/classes/tars.conf".format(mysqlHost))
     doCmd("sed -i 's/db.tars.com/{}/g' /usr/local/app/resin/webapps/ROOT/WEB-INF/classes/app.config.properties".format(mysqlHost))
-
-    doCmd("find /usr/local/app/tars/  -name '*.sh'| xargs chmod u+x")
-    doCmd("find /usr/local/app/tars/  -name 'start.sh'|bash")
     doCmd("chmod u+x /usr/local/app/resin/bin/resin.sh")
     doCmd("/usr/local/app/resin/bin/resin.sh start")
     return
@@ -85,6 +91,7 @@ def initDB():
     doCmd("mysql -utars -ptars2015 db_tars < {}/tarsqueryproperty.sql".format(dbDir))
     doCmd("mysql -utars -ptars2015 db_tars < {}/tarsquerystat.sql".format(dbDir))
     doCmd("mysql -utars -ptars2015 db_tars < {}/tarsstat.sql".format(dbDir))
+    doCmd("mysql -utars -ptars2015 db_tars < {}/tarsnotify.sql".format(dbDir))
     return
 
 if __name__ == '__main__':
