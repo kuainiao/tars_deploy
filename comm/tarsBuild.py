@@ -7,7 +7,11 @@ def do():
 
     return
 
-
+def build():
+    baseDir = getBaseDir()
+    doCmd("{}/cpp/build/build.sh cleanall".format(baseDir))
+    doCmd("{}/cpp/build/build.sh all".format(baseDir))
+    return
 
 
 if __name__ == '__main__':

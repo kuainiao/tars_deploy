@@ -46,8 +46,10 @@ def deployFrameServer():
     doCmd("sed -i 's/web.tars.com/{}/g' `find /usr/local/app/tars -name *.conf`".format(localIp))
     doCmd("sed -i 's/10.120.129.226/{}/g' `find /usr/local/app/tars -name *.conf`".format(localIp))
 
+    doCmd("sed -i 's/registry.tars.com/{}/g' /usr/local/app/resin/webapps/ROOT/WEB-INF/classes/tars.conf".format(localIp))
     doCmd("sed -i 's/registry.tars.com/{}/g' /usr/local/app/resin/webapps/ROOT/WEB-INF/classes/app.config.properties".format(localIp))
     doCmd("sed -i 's/db.tars.com/{}/g' /usr/local/app/resin/webapps/ROOT/WEB-INF/classes/tars.conf".format(mysqlHost))
+    doCmd("sed -i 's/db.tars.com/{}/g' /usr/local/app/resin/webapps/ROOT/WEB-INF/classes/app.config.properties".format(mysqlHost))
 
     doCmd("find /usr/local/app/tars/  -name '*.sh'| xargs chmod u+x")
     doCmd("find /usr/local/app/tars/  -name 'start.sh'|bash")
