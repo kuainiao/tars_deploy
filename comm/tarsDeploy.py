@@ -49,8 +49,17 @@ def deployFrameServer():
     doCmd("sed -i 's/10.120.129.226/{}/g' `find /usr/local/app/tars -name *.conf`".format(localIp))
 
     doCmd("find /usr/local/app/tars/  -name '*.sh'| xargs chmod u+x")
-    doCmd("find /usr/local/app/tars/  -name 'start.sh'|bash")
-
+    doCmd("/usr/local/app/tars/tarsregistry/util/start.sh")
+    doCmd("/usr/local/app/tars/tarsnode/util/start.sh")
+    doCmd("/usr/local/app/tars/tarsAdminRegistry/util/start.sh")
+    doCmd("/usr/local/app/tars/tarsconfig/util/start.sh")
+    doCmd("/usr/local/app/tars/tarsnotify/util/start.sh")
+    doCmd("/usr/local/app/tars/tarspatch/util/start.sh")
+    doCmd("/usr/local/app/tars/tarsstat/util/start.sh")
+    doCmd("/usr/local/app/tars/tarsproperty/util/start.sh")
+    doCmd("/usr/local/app/tars/tarsquerystat/util/start.sh")
+    doCmd("/usr/local/app/tars/tarsqueryproperty/util/start.sh")
+    doCmd("/usr/local/app/tars/tarslog/util/start.sh")
     return
 
 def deployWeb():
