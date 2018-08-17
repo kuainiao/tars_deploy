@@ -26,7 +26,6 @@ def doCmd(cmd):
         rCode=-1
     p.stdin.close()
     p.stdout.close()
-    p.stderr.close()
     return rCode
 
 
