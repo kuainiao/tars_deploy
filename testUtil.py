@@ -8,6 +8,8 @@ def getAbabsolutePath():
     return path
 
 if __name__ == '__main__':
-    tarsUtil.doCmd("/data/tars_deploy/pout.sh")
+    #tarsUtil.doCmd("/data/tars_deploy/pout.sh")
+    rcode = os.system("/data/tars_deploy/pout.sh")
+    print rcode
     pass
 
