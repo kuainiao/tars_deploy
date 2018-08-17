@@ -13,23 +13,28 @@ def getAbabsolutePath():
     return path
 
 def doCmd(cmd):
+    rCode=0
     p = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     while p.poll() is None:
         line = p.stdout.readline()
         line = line.strip()
         if line:
-            print "Subprogram output: [{}]".format(line)
+            print line
     if p.returncode == 0:
-        print "Subprogram success"
+        rCode =0
     else:
-        print "Subprogram failed"
+        rCode=-1
     p.stdin.close()
     p.stdout.close()
     p.stderr.close()
-    return
+    return rCode
 
 
 if __name__ == '__main__':
-    doCmd("/data/tars_deploy/pout.sh")
+    rCode = doCmd("/data/tars_deploy/pout.sh")
+    if rCode == 0:
+        print "ok"
+    else :
+        print "error"
     pass
 
