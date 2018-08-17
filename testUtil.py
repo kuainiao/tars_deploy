@@ -20,6 +20,12 @@ def doCom(cmd):
 
 
 if __name__ == '__main__':
+<<<<<<< HEAD
     doCmd("/data/tars_deploy/pout.sh")
+=======
+    #tarsUtil.doCmd("/data/tars_deploy/pout.sh")
+    rcode = os.system("/data/tars_deploy/pout.sh")
+    print rcode
+>>>>>>> ef3379e94b91d4c165880fc5a8a0c5992aa465ea
     pass
 
