@@ -12,7 +12,7 @@ def getAbabsolutePath():
     path = os.path.abspath(os.path.join(os.getcwd(), "../.."))
     return path
 
-def doCom(cmd):
+def doCmd(cmd):
     popen = subprocess.Popen(cmd, stdout = subprocess.PIPE)
     while True:
         print popen.stdout.readline()
