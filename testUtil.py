@@ -21,7 +21,7 @@ def doCmd(cmd):
         line = p.stdout.readline()
         line = line.strip()
         if line:
-            log.infoPrint(line)
+            log.info(line)
     if p.returncode == 0:
         rCode =0
     else:
