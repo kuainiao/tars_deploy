@@ -22,7 +22,7 @@ def build():
     return
 
 def deploy():
-    tarsDeploy.do()
+    #tarsDeploy.do()
     return
 
 def test():
