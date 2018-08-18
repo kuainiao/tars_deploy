@@ -32,7 +32,7 @@ def doCmd(cmd):
 
 
 if __name__ == '__main__':
-    rCode = doCmd("/data/tars_deploy/pout.sh")
+    rCode = doCmd("/data/Tars/tars_deploy/pout.sh")
     if rCode == 0:
         print "ok"
     else :
