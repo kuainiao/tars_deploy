@@ -2,12 +2,14 @@
 # encoding: utf-8
 import os
 import comm.tarsUtil as tarsUtil
+import comm.tarsLog as tarsLog
 import subprocess
 import sys
 import time
 import random
 import re
 
+log = tarsLog.getLogger()
 def getAbabsolutePath():
     path = os.path.abspath(os.path.join(os.getcwd(), "../.."))
     return path
@@ -19,7 +21,7 @@ def doCmd(cmd):
         line = p.stdout.readline()
         line = line.strip()
         if line:
-            print line
+            log.infoPrint(line)
     if p.returncode == 0:
         rCode =0
     else:

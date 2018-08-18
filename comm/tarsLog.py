@@ -6,15 +6,9 @@ class Logger:
         self.logger = logging.getLogger(path)
         self.logger.setLevel(logging.DEBUG)
         fmt = logging.Formatter('[%(asctime)s] [%(levelname)s] %(message)s', '%Y-%m-%d %H:%M:%S')
-        # 设置CMD日志
-        sh = logging.StreamHandler()
-        sh.setFormatter(fmt)
-        sh.setLevel(clevel)
-        # 设置文件日志
         fh = logging.FileHandler(path)
         fh.setFormatter(fmt)
         fh.setLevel(Flevel)
-        self.logger.addHandler(sh)
         self.logger.addHandler(fh)
 
     def debug(self, message):
@@ -22,6 +16,10 @@ class Logger:
 
     def info(self, message):
         self.logger.info(message)
+
+    def infoPrint(self,message):
+        print message
+        info(self,message)
 
     def war(self, message):
         self.logger.warn(message)
