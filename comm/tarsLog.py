@@ -19,7 +19,7 @@ class Logger:
 
     def infoPrint(self,message):
         print message
-        self.info(self,message)
+        self.info(message)
 
     def war(self, message):
         self.logger.warn(message)
