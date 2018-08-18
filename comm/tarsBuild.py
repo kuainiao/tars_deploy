@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # encoding: utf-8
+import subprocess
 import tarsLog
 from tarsUtil import *
 log = tarsLog.getLogger()
