@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # encoding: utf-8
 import tarsLog
-import tarsUtil
+from tarsUtil import *
 log = tarsLog.getLogger()
 def do():
     build()
@@ -9,15 +9,15 @@ def do():
 
 def build():
     baseDir = getBaseDir()
-    tarsUtil.doCmd("{}/cpp/build/build.sh cleanall".format(baseDir))
-    rCode = doCmd("{}/cpp/build/build.sh all".format(baseDir))
+    doCmd("{}/cpp/build/build.sh cleanall".format(baseDir))
+    rCode = buildCmd("{}/cpp/build/build.sh all".format(baseDir))
     if rCode == 0:
         log.info(" build success !!!")
     else:
         log.info(" build error !!!")
     return
 
-def doCmd(cmd):
+def buildCmd(cmd):
     rCode=0
     p = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     while p.poll() is None:
