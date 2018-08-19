@@ -18,7 +18,7 @@ def check():
     return
 
 def build():
-    #tarsBuild.do()
+    tarsBuild.do()
     return
 
 def deploy():
