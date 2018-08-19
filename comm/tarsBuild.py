@@ -15,7 +15,7 @@ def do():
 def pullRapidjson():
     baseDir = getBaseDir()
     if not os.path.exists("{}/cpp/thirdparty/rapidjson".format(baseDir)):
-        doCmd("git clone https://github.com/Tencent/rapidjson.git {}/cpp/thirdparty/rapidjson ".format(baseDir))
+        buildCmd("git clone https://github.com/Tencent/rapidjson.git {}/cpp/thirdparty/rapidjson ".format(baseDir))
     return
 
 def build():
