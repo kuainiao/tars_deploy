@@ -10,7 +10,7 @@ import comm.tarsUtil as tarsUtil
 def do():
     check()
     build()
-    deploy()
+    #deploy()
     test()
     return
 
