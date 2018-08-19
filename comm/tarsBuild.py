@@ -6,8 +6,10 @@ import os
 from tarsUtil import *
 log = tarsLog.getLogger()
 def do():
-    log.infoPrint("build start ...")
+    log.infoPrint("pullRapidjson start ...")
     pullRapidjson()
+    log.infoPrint("pullRapidjson success")
+    log.infoPrint("build start ...")
     #build()
     log.infoPrint("build sucess")
     return
