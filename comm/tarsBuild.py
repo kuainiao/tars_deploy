@@ -5,7 +5,9 @@ import tarsLog
 from tarsUtil import *
 log = tarsLog.getLogger()
 def do():
+    log.infoPrint("build start ...")
     build()
+    log.infoPrint("build sucess")
     return
 
 def build():

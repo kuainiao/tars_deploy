@@ -5,9 +5,15 @@ from tarsUtil import *
 
 log = tarsLog.getLogger()
 def do():
+    log.infoPrint("initDB start ...")
     initDB()
+    log.infoPrint("initDB success ")
+    log.infoPrint("deploy frameServer start ...")
     deployFrameServer()
+    log.infoPrint("deploy frameServer success ")
+    log.infoPrint("deploy web start ... ")
     deployWeb()
+    log.infoPrint("deploy web success")
     return
 
 def getDBDir():
