@@ -2,12 +2,20 @@
 # encoding: utf-8
 import subprocess
 import tarsLog
+import os
 from tarsUtil import *
 log = tarsLog.getLogger()
 def do():
     log.infoPrint("build start ...")
-    build()
+    pullRapidjson()
+    #build()
     log.infoPrint("build sucess")
+    return
+
+def pullRapidjson():
+    baseDir = getBaseDir()
+    if os.path.exists("{}/cpp/thirdparty/rapidjson".format(baseDir)):
+        doCmd("git clone https://github.com/Tencent/rapidjson.git {}/cpp/thirdparty/rapidjson ".format(baseDir))
     return
 
 def build():
