@@ -1,0 +1,8 @@
+#!/bin/sh
+rm -rf /data/Tars/tars_deploy
+cp -rf /data/tars_deploy/ /data/Tars/
+\cp -r /data/Tars_add/tars*/  /data/Tars/cpp/framework/deploy/
+\cp -rf /data/Tars_add/db/*  /data/Tars/cpp/framework/sql
+mkdir -p /usr/local/app/
+cp -rf /data/Tars_add/resin   /usr/local/app/
+

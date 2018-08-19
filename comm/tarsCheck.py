@@ -6,5 +6,9 @@ def do():
 
     return
 
+def check():
+
+    return
+
 if __name__ == '__main__':
     pass

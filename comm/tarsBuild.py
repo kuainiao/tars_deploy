@@ -25,8 +25,7 @@ def buildCmd(cmd):
         line = p.stdout.readline()
         line = line.strip()
         if line:
-            print line
-           #log.info(line)
+           log.infoPrint(line)
     if p.returncode == 0:
         rCode =0
     else:

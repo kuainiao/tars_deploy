@@ -62,6 +62,15 @@ def deployFrameServer():
     doCmd("/usr/local/app/tars/tarslog/util/start.sh")
     return
 
+def copyFile4FrameServer():
+    return
+
+def replaceConfig4FrameServer():
+    return
+
+def startServerFrameServer():
+    return
+
 def deployWeb():
     mysqlHost = getCommProperties("mysql.host")
     localIp = getLocalIp()
