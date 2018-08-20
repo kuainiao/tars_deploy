@@ -9,7 +9,8 @@ from tarsUtil import *
 log = tarsLog.getLogger()
 tarsDeploy = "/usr/local/app/tars"
 tarsDeployFrameBasicServerList = ["tarsregistry", "tarsnode", "tarsAdminRegistry", "tarspatch","tarsconfig"]
-tarsDeployFrameCommServerList = ["tarsnotify", "tarsstat", "tarsproperty", "tarsquerystat", "tarsqueryproperty", "tarslog", "tarsauth"]
+#tarsDeployFrameCommServerList = ["tarsnotify", "tarsstat", "tarsproperty", "tarsquerystat", "tarsqueryproperty", "tarslog", "tarsauth"]
+tarsDeployFrameCommServerList = []
 baseDir = getBaseDir()
 def do():
     log.infoPrint("initDB start ...")
@@ -32,12 +33,16 @@ def deployFrameServer():
         srcDir = "{}/cpp/build/framework/deploy/{}".format(baseDir,server)
         confDir = "{}/cpp/framework/deploy/{}".format(baseDir,server)
         dstDir = "/usr/local/app/tars/{}".format(server)
-        log.infoPrint(" srcDir is {} , confDir is {} , dstDir is {}  ".format(srcDir,confDir,dstDir))
+        log.infoPrint(" deploy {} start srcDir is {} , confDir is {} , dstDir is {}  ".format(server,srcDir,confDir,dstDir))
         copytree(srcDir,dstDir)
+        log.infoPrint(" deploy {} copy srcDir sucess  ".format(server))
         copytree(confDir,dstDir)
+        log.infoPrint(" deploy {} copy conf sucess  ".format(server))
         updateConf(server)
+        log.infoPrint(" deploy {} update conf sucess  ".format(server))
         os.chmod(dstDir+"/util/start.sh",stat.S_IXGRP)
         doCmd(dstDir+"/util/start.sh".format(server))
+        log.infoPrint(" deploy {}  sucess".format(server))
 
     for server in tarsDeployFrameCommServerList:
         srcDir = "{}/cpp/build/framework/deploy/{}".format(baseDir,server)
