@@ -36,8 +36,8 @@ def deployFrameServer():
         copytree(srcDir,dstDir)
         copytree(confDir,dstDir)
         updateConf(server)
-        os.chmod(dstDir+"/"+server+"/util/start.sh",stat.S_IXGRP)
-        doCmd(dstDir+"/"+server+"/util/start.sh".format(server))
+        os.chmod(dstDir+"/util/start.sh",stat.S_IXGRP)
+        doCmd(dstDir+"/util/start.sh".format(server))
 
     for server in tarsDeployFrameCommServerList:
         srcDir = "{}/cpp/build/framework/deploy/{}".format(baseDir,server)
