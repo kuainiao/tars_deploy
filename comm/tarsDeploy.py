@@ -41,6 +41,7 @@ def deployFrameServer():
         updateConf(server)
         log.infoPrint(" deploy {} update conf sucess  ".format(server))
         os.chmod(dstDir+"/util/start.sh",stat.S_IXGRP)
+        log.infoPrint(" deploy {} chmod  sucess  ".format(server))
         doCmd(dstDir+"/util/start.sh".format(server))
         log.infoPrint(" deploy {}  sucess".format(server))
 
