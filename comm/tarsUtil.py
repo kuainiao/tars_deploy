@@ -69,7 +69,7 @@ def copytree(src, dst, symlinks=False, ignore=None, copy_function=shutil.copy2,
                 shutil.copy_function(srcname, dstname)
         # catch the Error from the recursive copytree so that we can
         # continue with other files
-        except Error as err:
+        except shutil.Error as err:
             errors.extend(err.args[0])
         except OSError as why:
             errors.append((srcname, dstname, str(why)))
@@ -80,7 +80,7 @@ def copytree(src, dst, symlinks=False, ignore=None, copy_function=shutil.copy2,
         if getattr(why, 'winerror', None) is None:
             errors.append((src, dst, str(why)))
     if errors:
-        raise Error(errors)
+        raise shutil.Error(errors)
     return dst
 
 def doCmd(cmd):
