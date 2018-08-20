@@ -10,7 +10,7 @@ def do():
     pullRapidjson()
     log.infoPrint("pullRapidjson success")
     log.infoPrint("build start ...")
-    #build()
+    build()
     log.infoPrint("build sucess")
     return
 

@@ -1,9 +1,16 @@
 #!/usr/bin/python
 # encoding: utf-8
 import tarsLog
+import shutil
+import os
+import sys
+import stat
 from tarsUtil import *
-
 log = tarsLog.getLogger()
+tarsDeploy = "/usr/local/app/tars"
+tarsDeployFrameBasicServerList = ["tarsregistry", "tarsnode", "tarsAdminRegistry", "tarspatch","tarsconfig"]
+tarsDeployFrameCommServerList = ["tarsnotify", "tarsstat", "tarsproperty", "tarsquerystat", "tarsqueryproperty", "tarslog", "tarsauth"]
+baseDir = getBaseDir()
 def do():
     log.infoPrint("initDB start ...")
     initDB()
@@ -17,35 +24,39 @@ def do():
     return
 
 def getDBDir():
-    baseDir = getBaseDir()
     dbDir = baseDir+"/cpp/framework/sql/"
     return dbDir
 
 def deployFrameServer():
+
+    if not os.path.exists(tarsDeploy):
+        os.makedirs(tarsDeploy)
+    for server in tarsDeployFrameBasicServerList:
+        srcDir = "{}/cpp/build/framework/deploy/{}".format(baseDir,server)
+        confDir = "{}/cpp/framework/deploy/{}".format(baseDir,server)
+        dstDir = "/usr/local/app/tars/"
+        shutil.copytree(srcDir,dstDir)
+        shutil.copytree(confDir,dstDir)
+        updateConf(server)
+        os.chmod(dstDir+"/"+server+"/util/start.sh",stat.S_IXGRP)
+        doCmd(dstDir+"/"+server+"/util/start.sh".format(server))
+
+    for server in tarsDeployFrameCommServerList:
+        srcDir = "{}/cpp/build/framework/deploy/{}".format(baseDir,server)
+        confDir = "{}/cpp/framework/deploy/{}".format(baseDir, server)
+        dstDir = "/usr/local/app/tars/{}/bin/".format(server)
+        if not os.path.exists(dstDir):
+            os.makedirs(dstDir)
+        shutil.copyfile(srcDir+"/"+server,dstDir)
+        shutil.copytree(confDir, dstDir)
+        updateConf(server)
+        os.chmod(dstDir+"/"+server+"/util/start.sh",stat.S_IXGRP)
+        doCmd(dstDir+"/"+server+"/util/start.sh".format(server))
+    return
+
+def updateConf(server):
     mysqlHost = getCommProperties("mysql.host")
     localIp = getLocalIp()
-    doCmd("mkdir -p /usr/local/app/tars")
-    doCmd("cp -rf /data/Tars/cpp/build/framework/deploy/tars* /usr/local/app/tars/")
-    doCmd("cp -rf /data/Tars/cpp/build/framework/deploy/tarsregistry /usr/local/app/tars/")
-    doCmd("cp -rf /data/Tars/cpp/build/framework/deploy/tarsAdminRegistry /usr/local/app/tars/")
-    doCmd("cp -rf /data/Tars/cpp/build/framework/deploy/tarsnode /usr/local/app/tars/")
-    doCmd("cp -rf /data/Tars/cpp/build/framework/deploy/tarsconfig /usr/local/app/tars/")
-    doCmd("cp -rf  /data/Tars/cpp/build/framework/deploy/tarsnotify /usr/local/app/tars/")
-    doCmd("cp -rf /data/Tars/cpp/build/framework/deploy/tarspatch /usr/local/app/tars/")
-    doCmd("cp -rf /data/Tars/cpp/build/framework/deploy/tarsstat /usr/local/app/tars/")
-    doCmd("cp -rf /data/Tars/cpp/build/framework/deploy/tarsproperty /usr/local/app/tars/")
-    doCmd("cp -rf /data/Tars/cpp/build/framework/deploy/tarsquerystat /usr/local/app/tars/")
-    doCmd("cp -rf /data/Tars/cpp/build/framework/deploy/tarsqueryproperty /usr/local/app/tars/")
-    doCmd("cp -rf /data/Tars/cpp/build/framework/deploy/tarslog /usr/local/app/tars/")
-    doCmd("cp -rf /data/Tars/cpp/framework/deploy/tars* /usr/local/app/tars/")
-    doCmd("mkdir -p /usr/local/app/tars/tarsauth/bin;mv /usr/local/app/tars/tarsauth/tarsauth /usr/local/app/tars/tarsauth/bin/")
-    doCmd("mkdir -p /usr/local/app/tars/tarslog/bin;mv /usr/local/app/tars/tarslog/tarslog /usr/local/app/tars/tarslog/bin/")
-    doCmd("mkdir -p /usr/local/app/tars/tarsnotify/bin;mv /usr/local/app/tars/tarsnotify/tarsnotify /usr/local/app/tars/tarsnotify/bin/")
-    doCmd("mkdir -p /usr/local/app/tars/tarsproperty/bin;mv /usr/local/app/tars/tarsproperty/tarsproperty /usr/local/app/tars/tarsproperty/bin/")
-    doCmd("mkdir -p /usr/local/app/tars/tarsqueryproperty/bin;mv /usr/local/app/tars/tarsqueryproperty/tarsqueryproperty /usr/local/app/tars/tarsqueryproperty/bin/")
-    doCmd("mkdir -p /usr/local/app/tars/tarsquerystat/bin;mv /usr/local/app/tars/tarsquerystat/tarsquerystat  /usr/local/app/tars/tarsquerystat/bin")
-    doCmd("mkdir -p /usr/local/app/tars/tarsstat/bin;mv /usr/local/app/tars/tarsstat/tarsstat /usr/local/app/tars/tarsstat/bin/")
-
     doCmd("sed -i 's/localip.tars.com/{}/g' `find /usr/local/app/tars -name *.conf`".format(localIp))
     doCmd("sed -i 's/192.168.2.131/{}/g' `find /usr/local/app/tars -name *.conf`".format(localIp))
     doCmd("sed -i 's/db.tars.com/{}/g' `find /usr/local/app/tars -name *.conf`".format(mysqlHost))
@@ -53,19 +64,6 @@ def deployFrameServer():
     doCmd("sed -i 's/registry.tars.com/{}/g' `find /usr/local/app/tars -name '*.sh'`".format(localIp))
     doCmd("sed -i 's/web.tars.com/{}/g' `find /usr/local/app/tars -name *.conf`".format(localIp))
     doCmd("sed -i 's/10.120.129.226/{}/g' `find /usr/local/app/tars -name *.conf`".format(localIp))
-
-    doCmd("find /usr/local/app/tars/  -name '*.sh'| xargs chmod u+x")
-    doCmd("/usr/local/app/tars/tarsregistry/util/start.sh")
-    doCmd("/usr/local/app/tars/tarsnode/util/start.sh")
-    doCmd("/usr/local/app/tars/tarsAdminRegistry/util/start.sh")
-    doCmd("/usr/local/app/tars/tarsconfig/util/start.sh")
-    doCmd("/usr/local/app/tars/tarsnotify/util/start.sh")
-    doCmd("/usr/local/app/tars/tarspatch/util/start.sh")
-    doCmd("/usr/local/app/tars/tarsstat/util/start.sh")
-    doCmd("/usr/local/app/tars/tarsproperty/util/start.sh")
-    doCmd("/usr/local/app/tars/tarsquerystat/util/start.sh")
-    doCmd("/usr/local/app/tars/tarsqueryproperty/util/start.sh")
-    doCmd("/usr/local/app/tars/tarslog/util/start.sh")
     return
 
 def copyFile4FrameServer():
