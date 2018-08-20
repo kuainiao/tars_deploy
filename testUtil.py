@@ -15,7 +15,7 @@ def getAbabsolutePath():
     return path
 
 def cpTest():
-    tarsUtil.copyTree("/data/Tars/cpp/build/framework/deploy/tarsregistry","/usr/local/app/tars/")
+    tarsUtil.copytree("/data/Tars/cpp/build/framework/deploy/tarsregistry","/usr/local/app/tars/")
     return
 def cmdTest():
     rCode = doCmd("/data/Tars/tars_deploy/pout.sh")
