@@ -31,7 +31,8 @@ def deployFrameServer():
     for server in tarsDeployFrameBasicServerList:
         srcDir = "{}/cpp/build/framework/deploy/{}".format(baseDir,server)
         confDir = "{}/cpp/framework/deploy/{}".format(baseDir,server)
-        dstDir = "/usr/local/app/tars/"
+        dstDir = "/usr/local/app/tars/{}".format(server)
+        log.infoPrint(" srcDir is {},confDir is {} ,dstDir is {} ".format(srcDir,confDir,dstDir))
         shutil.copytree(srcDir,dstDir)
         shutil.copytree(confDir,dstDir)
         updateConf(server)
