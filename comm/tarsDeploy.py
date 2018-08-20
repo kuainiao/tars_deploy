@@ -45,9 +45,9 @@ def deployFrameServer():
         confDir = "{}/cpp/framework/deploy/{}".format(baseDir, server)
         dstDir = "/usr/local/app/tars/{}".format(server)
         dstBinDir = "/usr/local/app/tars/{}/bin/".format(server)
-        if not os.path.exists(dstDir):
-            os.makedirs(dstDir)
-        copytree(srcDir+"/"+server,dstBinDir)
+        if not os.path.exists(dstBinDir):
+            os.makedirs(dstBinDir)
+        shutil.copy(srcDir+"/"+server,dstBinDir+"/"+server)
         copytree(confDir,dstDir)
         updateConf(server)
         os.chmod(dstDir+"/"+server+"/util/start.sh",stat.S_IXGRP)
