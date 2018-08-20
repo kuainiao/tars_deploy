@@ -9,8 +9,7 @@ from tarsUtil import *
 log = tarsLog.getLogger()
 tarsDeploy = "/usr/local/app/tars"
 tarsDeployFrameBasicServerList = ["tarsregistry", "tarsnode", "tarsAdminRegistry", "tarspatch","tarsconfig"]
-#tarsDeployFrameCommServerList = ["tarsnotify", "tarsstat", "tarsproperty", "tarsquerystat", "tarsqueryproperty", "tarslog", "tarsauth"]
-tarsDeployFrameCommServerList = []
+tarsDeployFrameCommServerList = ["tarsnotify", "tarsstat", "tarsproperty", "tarsquerystat", "tarsqueryproperty", "tarslog", "tarsauth"]
 baseDir = getBaseDir()
 def do():
     log.infoPrint("initDB start ...")
@@ -35,24 +34,21 @@ def deployFrameServer():
         dstDir = "/usr/local/app/tars/{}".format(server)
         log.infoPrint(" deploy {} start srcDir is {} , confDir is {} , dstDir is {}  ".format(server,srcDir,confDir,dstDir))
         copytree(srcDir,dstDir)
-        log.infoPrint(" deploy {} copy srcDir sucess  ".format(server))
         copytree(confDir,dstDir)
-        log.infoPrint(" deploy {} copy conf sucess  ".format(server))
         updateConf(server)
-        log.infoPrint(" deploy {} update conf sucess  ".format(server))
         os.chmod(dstDir+"/util/start.sh",stat.S_IXGRP)
-        log.infoPrint(" deploy {} chmod  sucess  ".format(server))
         doCmd(dstDir+"/util/start.sh".format(server))
         log.infoPrint(" deploy {}  sucess".format(server))
 
     for server in tarsDeployFrameCommServerList:
         srcDir = "{}/cpp/build/framework/deploy/{}".format(baseDir,server)
         confDir = "{}/cpp/framework/deploy/{}".format(baseDir, server)
-        dstDir = "/usr/local/app/tars/{}/bin/".format(server)
+        dstDir = "/usr/local/app/tars/{}".format(server)
+        dstBinDir = "/usr/local/app/tars/{}/bin/".format(server)
         if not os.path.exists(dstDir):
             os.makedirs(dstDir)
-        copytree(srcDir+"/"+server,dstDir)
-        copytree(confDir, dstDir)
+        copytree(srcDir+"/"+server,dstBinDir)
+        copytree(confDir,dstDir)
         updateConf(server)
         os.chmod(dstDir+"/"+server+"/util/start.sh",stat.S_IXGRP)
         doCmd(dstDir+"/"+server+"/util/start.sh".format(server))
