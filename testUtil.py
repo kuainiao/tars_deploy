@@ -14,6 +14,10 @@ def getAbabsolutePath():
     path = os.path.abspath(os.path.join(os.getcwd(), "../.."))
     return path
 
+def cpTest():
+    tarsUtil.copytree("/data/Tars/cpp/build/framework/deploy/tarsregistry","/usr/local/app/tars/")
+    return
+
 def doCmd(cmd):
     rCode=0
     p = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
