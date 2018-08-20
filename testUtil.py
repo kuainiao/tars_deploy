@@ -17,6 +17,13 @@ def getAbabsolutePath():
 def cpTest():
     tarsUtil.copytree("/data/Tars/cpp/build/framework/deploy/tarsregistry","/usr/local/app/tars/")
     return
+def cmdTest():
+    rCode = doCmd("/data/Tars/tars_deploy/pout.sh")
+    if rCode == 0:
+        print "ok"
+    else :
+        print "error"
+    return
 
 def doCmd(cmd):
     rCode=0
@@ -36,10 +43,6 @@ def doCmd(cmd):
 
 
 if __name__ == '__main__':
-    rCode = doCmd("/data/Tars/tars_deploy/pout.sh")
-    if rCode == 0:
-        print "ok"
-    else :
-        print "error"
+    cpTest()
     pass
 
