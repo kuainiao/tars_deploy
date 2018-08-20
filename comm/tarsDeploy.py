@@ -50,7 +50,7 @@ def deployFrameServer():
         dstDir = "/usr/local/app/tars/{}/bin/".format(server)
         if not os.path.exists(dstDir):
             os.makedirs(dstDir)
-        shutil.copyfile(srcDir+"/"+server,dstDir)
+        copytree(srcDir+"/"+server,dstDir)
         copytree(confDir, dstDir)
         updateConf(server)
         os.chmod(dstDir+"/"+server+"/util/start.sh",stat.S_IXGRP)
