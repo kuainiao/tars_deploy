@@ -28,9 +28,6 @@ def getDBDir():
     return dbDir
 
 def deployFrameServer():
-
-    if not os.path.exists(tarsDeploy):
-        os.makedirs(tarsDeploy)
     for server in tarsDeployFrameBasicServerList:
         srcDir = "{}/cpp/build/framework/deploy/{}".format(baseDir,server)
         confDir = "{}/cpp/framework/deploy/{}".format(baseDir,server)
