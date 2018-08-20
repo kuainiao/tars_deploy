@@ -27,7 +27,7 @@ def getBaseDir():
     path = os.path.abspath(os.path.join(os.getcwd(), ".."))
     return path
 
-def copyTree(src, dst):
+def copytree(src, dst):
     copy_tree(src,dst)
     return
 

@@ -46,7 +46,7 @@ def deployFrameServer():
         if not os.path.exists(dstDir):
             os.makedirs(dstDir)
         shutil.copyfile(srcDir+"/"+server,dstDir)
-        shutil.copytree(confDir, dstDir)
+        copytree(confDir, dstDir)
         updateConf(server)
         os.chmod(dstDir+"/"+server+"/util/start.sh",stat.S_IXGRP)
         doCmd(dstDir+"/"+server+"/util/start.sh".format(server))
