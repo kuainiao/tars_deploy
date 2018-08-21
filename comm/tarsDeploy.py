@@ -120,6 +120,7 @@ def initDB():
     doCmd("mysql -utars -ptars2015 -e 'create database db_tars'")
     doCmd("mysql -utars -ptars2015 -e 'create database tars_stat'")
     doCmd("mysql -utars -ptars2015 -e 'create database tars_property'")
+    doCmd("mysql -utars -ptars2015 -e 'create database tars_tars_web'")
 
     doCmd("mysql -utars -ptars2015 db_tars < {}/db_tars.sql".format(dbDir))
     doCmd("mysql -utars -ptars2015 db_tars < {}/tarsconfig.sql".format(dbDir))
