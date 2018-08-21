@@ -9,8 +9,8 @@ def do():
     doCmd("mysql -utars -ptars2015 -e 'drop database if exists db_tars'")
     doCmd("mysql -utars -ptars2015 -e 'drop database if exists tars_stat'")
     doCmd("mysql -utars -ptars2015 -e 'drop database if exists tars_property'")
-    if os.path.exists("/usr/local/app"):
-        shutil.rmtree("/usr/local/app")
+    if os.path.exists("/usr/local/app/web"):
+        shutil.rmtree("/usr/local/app/web")
     return
 if __name__ == '__main__':
     do()

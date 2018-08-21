@@ -13,13 +13,14 @@ tarsDeployFrameCommServerList = ["tarsnotify", "tarsstat", "tarsproperty", "tars
 baseDir = getBaseDir()
 def do():
     log.infoPrint("initDB start ...")
-    initDB()
+    #initDB()
     log.infoPrint("initDB success ")
     log.infoPrint("deploy frameServer start ...")
-    deployFrameServer()
+    #deployFrameServer()
     log.infoPrint("deploy frameServer success ")
     log.infoPrint("deploy web start ... ")
-    deployWeb()
+    #deployWeb()
+    deployNodeWeb()
     log.infoPrint("deploy web success")
     return
 
@@ -85,6 +86,20 @@ def deployWeb():
     doCmd("sed -i 's/db.tars.com/{}/g' /usr/local/app/resin/webapps/ROOT/WEB-INF/classes/app.config.properties".format(mysqlHost))
     doCmd("chmod u+x /usr/local/app/resin/bin/resin.sh")
     doCmd("/usr/local/app/resin/bin/resin.sh start")
+    return
+
+def deployNodeWeb():
+    mysqlHost = getCommProperties("mysql.host")
+    localIp = getLocalIp()
+    result = doCmdIgnoreException("nvm --version")
+    if result["status"] != 0:
+        doCmd("wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash")
+    doCmd("nvm install v8.11.3")
+    doCmd("npm install -g pm2 --registry=https://registry.npm.taobao.org")
+    copytree("{}/web".format(baseDir), "/usr/local/app/web")
+    doCmd("sed -i 's/registry1.tars.com/{}/g' /usr/local/app/web/config/tars.conf".format(localIp))
+    doCmd("sed -i 's/db.tars.com/{}/g' /usr/local/app/web/config/webConf.js".format(mysqlHost))
+    doCmd("cd /usr/local/app/web;npm install --registry=https://registry.npm.taobao.org;npm run prd")
     return
 
 def initDB():
