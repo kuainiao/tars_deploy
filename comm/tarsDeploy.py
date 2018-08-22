@@ -89,14 +89,20 @@ def deployWeb():
     return
 
 def deployNodeWeb():
-    mysqlHost = getCommProperties("mysql.host")
-    localIp = getLocalIp()
+    #mysqlHost = getCommProperties("mysql.host")
+    #localIp = getLocalIp()
+    mysqlHost = "172.16.0.17"
+    localIp = "172.16.0.17"
     result = doCmdIgnoreException("nvm --version")
     if result["status"] != 0:
+        log.infoPrint("install nvm start...")
         doCmd("wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash")
+        log.infoPrint("install nvm sucess")
     result = doCmdIgnoreException("node --version")
     if result["status"] != 0:
+        log.infoPrint("install node start...")
         doCmd("nvm install v8.11.3")
+        log.infoPrint("install node start...")
     result = doCmdIgnoreException("pm2 --version")
     if result["status"] != 0:
         doCmd("npm install -g pm2 --registry=https://registry.npm.taobao.org")
