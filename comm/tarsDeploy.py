@@ -101,7 +101,7 @@ def deployNodeWeb():
     result = doCmdIgnoreException("node --version")
     if result["status"] != 0:
         log.infoPrint("install node start...")
-        doCmd("nvm install v8.11.3")
+        doCmd("source ~/.bashrc;nvm install v8.11.3")
         log.infoPrint("install node start...")
     result = doCmdIgnoreException("pm2 --version")
     if result["status"] != 0:
