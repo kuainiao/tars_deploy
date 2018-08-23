@@ -95,14 +95,15 @@ def deployNodeWeb():
     localIp = "172.16.0.17"
     result = doCmdIgnoreException("source ~/.bashrc;nvm --version")
     log.infoPrint(" source ~/.bashrc; nvm --version result is {}".format(result))
-    if 1==1:
-        log.infoPrint("test  end end end ")
-        return
     if result["status"] != 0:
         log.infoPrint("install nvm start...")
         doCmd("wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash")
         log.infoPrint("install nvm sucess")
     result = doCmdIgnoreException("node --version")
+    log.infoPrint(" source ~/.bashrc; node --version result is {}".format(result))
+    if 1==1:
+        log.infoPrint("test  end end end ")
+        return
     if result["status"] != 0:
         log.infoPrint("install node start...")
         doCmd("source ~/.bashrc; nvm install v8.11.3")
