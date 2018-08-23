@@ -107,9 +107,6 @@ def deployNodeWeb():
         log.infoPrint("install node start...")
     result = doCmdIgnoreException("pm2 --version")
     log.infoPrint("pm2 --version result is {}".format(result))
-    if 1==1:
-        log.infoPrint("test end end end ")
-        return
     if result["status"] != 0:
         doCmd("source ~/.bashrc;npm install -g pm2 --registry=https://registry.npm.taobao.org")
     copytree("{}/web".format(baseDir), "/usr/local/app/web")
