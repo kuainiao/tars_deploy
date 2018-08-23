@@ -94,21 +94,24 @@ def deployNodeWeb():
     mysqlHost = "172.16.0.17"
     localIp = "172.16.0.17"
     result = doCmdIgnoreException("source ~/.bashrc;nvm --version")
-    log.infoPrint("nvm version  is {}".format(result["output"]))
     if result["status"] != 0:
         log.infoPrint("install nvm start...")
         doCmd("wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash")
         log.infoPrint("install nvm sucess")
-    result = doCmdIgnoreException("node --version")
-    log.infoPrint("node version  is {}".format(result["output"]))
+    else:
+        log.infoPrint("nvm version  is {}".format(result["output"]))
+    result = doCmdIgnoreException("source ~/.bashrc;node --version")
     if result["status"] != 0:
         log.infoPrint("install node start...")
         doCmd("source ~/.bashrc; nvm install v8.11.3")
         log.infoPrint("install node start...")
-    result = doCmdIgnoreException("pm2 --version")
-    log.infoPrint("pm2 version  is {}".format(result["output"]))
+    else:
+        log.infoPrint("node version  is {}".format(result["output"]))
+    result = doCmdIgnoreException("source ~/.bashrc;pm2 --version")
     if result["status"] != 0:
         doCmd("source ~/.bashrc;npm install -g pm2 --registry=https://registry.npm.taobao.org")
+    else:
+        log.infoPrint("pm2 version  is {}".format(result["output"]))
     copytree("{}/web".format(baseDir), "/usr/local/app/web")
     doCmd("sed -i 's/registry.tars.com/{}/g' /usr/local/app/web/config/tars.conf".format(localIp))
     doCmd("sed -i 's/db.tars.com/{}/g' /usr/local/app/web/config/webConf.js".format(mysqlHost))
