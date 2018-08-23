@@ -93,7 +93,7 @@ def deployNodeWeb():
     #localIp = getLocalIp()
     mysqlHost = "172.16.0.17"
     localIp = "172.16.0.17"
-    result = doCmdIgnoreException("nvm --version")
+    result = doCmdIgnoreException("source ~/.bashrc;nvm --version")
     log.infoPrint(" source ~/.bashrc; nvm --version result is {}".format(result))
     if 1==1:
         log.infoPrint("test  end end end ")
