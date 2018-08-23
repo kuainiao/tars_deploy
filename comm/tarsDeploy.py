@@ -105,11 +105,11 @@ def deployNodeWeb():
         log.infoPrint("install node start...")
     result = doCmdIgnoreException("pm2 --version")
     if result["status"] != 0:
-        doCmd("npm install -g pm2 --registry=https://registry.npm.taobao.org")
+        doCmd("source ~/.bashrc;npm install -g pm2 --registry=https://registry.npm.taobao.org")
     copytree("{}/web".format(baseDir), "/usr/local/app/web")
     doCmd("sed -i 's/registry.tars.com/{}/g' /usr/local/app/web/config/tars.conf".format(localIp))
     doCmd("sed -i 's/db.tars.com/{}/g' /usr/local/app/web/config/webConf.js".format(mysqlHost))
-    doCmd("cd /usr/local/app/web;npm install --registry=https://registry.npm.taobao.org;npm run prd")
+    doCmd("cd /usr/local/app/web;source ~/.bashrc;npm install --registry=https://registry.npm.taobao.org;npm run prd")
     return
 
 def initDB():
