@@ -97,14 +97,14 @@ def deployNodeWeb():
     if result["status"] != 0:
         log.infoPrint("install nvm start...")
         doCmd("wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash")
-        log.infoPrint("install nvm sucess")
+        log.infoPrint("install nvm success")
     else:
         log.infoPrint("nvm version  is {}".format(result["output"]))
     result = doCmdIgnoreException("source ~/.bashrc;node --version")
     if result["status"] != 0:
         log.infoPrint("install node start...")
         doCmd("source ~/.bashrc; nvm install v8.11.3")
-        log.infoPrint("install node start...")
+        log.infoPrint("install node success")
     else:
         log.infoPrint("node version  is {}".format(result["output"]))
     result = doCmdIgnoreException("source ~/.bashrc;pm2 --version")
