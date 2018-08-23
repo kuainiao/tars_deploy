@@ -94,6 +94,7 @@ def deployNodeWeb():
     mysqlHost = "172.16.0.17"
     localIp = "172.16.0.17"
     result = doCmdIgnoreException("nvm --version")
+    log.infoPrint(" nvm --version result is {}".format(result))
     if result["status"] != 0:
         log.infoPrint("install nvm start...")
         doCmd("wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash")
