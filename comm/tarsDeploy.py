@@ -100,15 +100,16 @@ def deployNodeWeb():
         doCmd("wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash")
         log.infoPrint("install nvm sucess")
     result = doCmdIgnoreException("node --version")
-    log.infoPrint(" source ~/.bashrc; node --version result is {}".format(result))
-    if 1==1:
-        log.infoPrint("test  end end end ")
-        return
+    log.infoPrint("node --version result is {}".format(result))
     if result["status"] != 0:
         log.infoPrint("install node start...")
         doCmd("source ~/.bashrc; nvm install v8.11.3")
         log.infoPrint("install node start...")
     result = doCmdIgnoreException("pm2 --version")
+    log.infoPrint("pm2 --version result is {}".format(result))
+    if 1==1:
+        log.infoPrint("test end end end ")
+        return
     if result["status"] != 0:
         doCmd("source ~/.bashrc;npm install -g pm2 --registry=https://registry.npm.taobao.org")
     copytree("{}/web".format(baseDir), "/usr/local/app/web")
