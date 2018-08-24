@@ -45,7 +45,7 @@ def testByWebInterface(url,params):
     if(resultJson["ret_code"]!=200):
         return (-1,"tarweb cannot ")
     else:
-        if resultJson["data"].find("succ")=-1:
+        if resultJson["data"].find("succ") == -1:
             return (-1,"get tarsversion fail,please check")
     return (0,"")
 
