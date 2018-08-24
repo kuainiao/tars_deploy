@@ -30,20 +30,20 @@ def testNode():
     return (0,"")
 
 def testWeb():
-    return testByInterface("/pages/tree","")
+    return testByInterface("/pages/tree","","")
 
 def testFrameServer():
     return (0,"")
 
-def testByInterface(uri,params):
+def testByInterface(uri,params,indexKey):
     url ="http://{}:8080/{}".format(localIp,uri)
     print url
     result = requests.get(url,data=params)
     if(result.status_code!=200):
-        return (-1,"tarweb cannot visit")
+        return (-1,"test fail,tarweb cannot visit")
     else:
-        if result.text.find("succ") == -1:
-            return (-1,"get tarsversion fail,please check")
+        if result.text.find(indexKey) == -1:
+            return (-1,"test fail")
     return (0,"")
 
 if __name__ == '__main__':
