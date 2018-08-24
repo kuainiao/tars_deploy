@@ -41,11 +41,10 @@ def testFrameServer():
 def testByWebInterface(url,params):
     url ="http://111.230.151.221:8080/pages/server/api/send_command?server_ids=2&command=tars.viewversion"
     result = requests.get(url)
-    resultJson = result.json()
-    if(resultJson["ret_code"]!=200):
-        return (-1,"tarweb cannot ")
+    if(result.status_code!=200):
+        return (-1,"tarweb cannot visit")
     else:
-        if resultJson["data"].find("succ") == -1:
+        if result.text.find("succ") == -1:
             return (-1,"get tarsversion fail,please check")
     return (0,"")
 
