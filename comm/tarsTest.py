@@ -6,7 +6,8 @@ import os
 import requests
 from tarsUtil import *
 log = tarsLog.getLogger()
-localIp = getLocalIp()
+#localIp = getLocalIp()
+localIp = "172.16.0.17"
 def do():
     (rCode,msg) = testRegistry()
     if rCode !=0:
