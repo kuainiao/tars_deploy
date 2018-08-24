@@ -36,8 +36,6 @@ def testFrameServer():
 
 def testByInterface(uri,params):
     url ="http://{}:8080/{}".format(localIp,uri)
-    params["server_ids"]="2"
-    params["command"]="tars.viewversion"
     result = requests.get(url,data=params)
     if(result.status_code!=200):
         return (-1,"tarweb cannot visit")
