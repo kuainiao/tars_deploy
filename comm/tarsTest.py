@@ -40,7 +40,7 @@ def testFrameServer():
 
 def testByWebInterface(url,params):
     url ="http://111.230.151.221:8080/pages/server/api/send_command?server_ids=2&command=tars.viewversion"
-    result = requests.get(url,data=postJson)
+    result = requests.get(url)
     resultJson = result.json()
     if(resultJson["ret_code"]!=200):
         return (-1,"tarweb cannot ")
