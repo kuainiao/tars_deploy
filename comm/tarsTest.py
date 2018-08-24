@@ -39,6 +39,7 @@ def testByInterface(uri,params,indexKey):
     url ="http://{}:8080/{}".format(localIp,uri)
     print url
     result = requests.get(url,data=params)
+    print " statusCode is {} ,text is {} ".format(result.status_code,result.text)
     if(result.status_code!=200):
         return (-1,"test fail,tarweb cannot visit")
     else:
