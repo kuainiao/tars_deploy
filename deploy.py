@@ -8,25 +8,25 @@ import comm.tarsLog as tarsLog
 import comm.tarsUtil as tarsUtil
 
 def do():
-    check()
+    #check()
     #build()
-    deploy()
-    test()
+    #deploy()
+    (retCode,msg) = test()
+    if retCode !=0:
+        print " deploy test fail ,{}".format(msg)
     return
 
 def check():
     return
 
 def build():
-    tarsBuild.do()
-    return
+    return tarsBuild.do()
 
 def deploy():
-    tarsDeploy.do()
-    return
+    return tarsDeploy.do()
 
 def test():
-    return
+    return tarsTest.do()
 
 if __name__ == '__main__':
     do()
