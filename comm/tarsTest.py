@@ -30,7 +30,7 @@ def testNode():
     return (0,"")
 
 def testWeb():
-    return testByInterface("/pages/tree","","")
+    return testByInterface("/pages/tree","","sdfdddd")
 
 def testFrameServer():
     return (0,"")
