@@ -49,7 +49,7 @@ def testByInterface(uri,params,indexKey):
     log.info(url)
     try:
         result = requests.get(url,data=params)
-    except Exception
+    except Exception:
         log.infoPrint(" test fail,tarsweb cannot visit")
         return (-1, "test fail,tarweb cannot visit")
     log.info(" url is {} ,statusCode is {} ,text is {} ".format(url,result.status_code,result.text))
