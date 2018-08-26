@@ -8,7 +8,7 @@ from tarsUtil import *
 log = tarsLog.getLogger()
 #localIp = getLocalIp()
 localIp = "172.16.0.17"
-webPort = "8080"
+webPort = "8081"
 def do():
     (rCode,msg) = testRegistry()
     if rCode !=0:
