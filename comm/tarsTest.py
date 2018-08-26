@@ -34,7 +34,7 @@ def testWeb():
     return testByInterface("/pages/tree","","sdfdddd")
 
 def testFrameServer():
-    frameServer = [("serverName":"tarspatch","serverId","1"),("serverName":"tarsconfig","serverId":"2")]
+    frameServer = [("tarspatch","1"),("tarsconfig","2")]
     for (serverName,serverId) in frameServer:
         print "test server {} start ".format(serverName)
     return (0,"")
