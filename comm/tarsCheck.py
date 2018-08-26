@@ -18,9 +18,9 @@ def check():
 
 def hasInstallServer(server):
     (rCode,msg) = doCmd("which {}".format(server))
-    if rCode == 0
+    if rCode == 0:
         return True
-    else
+    else:
         return False
     return
 
