@@ -12,7 +12,7 @@ def do():
 
 def check():
     for server in checkServer:
-        log.infPrint(" check and install server {}".format(server))
+        log.infoPrint(" check and install server {}".format(server))
         installByYum(server)
     return
 
