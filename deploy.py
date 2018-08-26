@@ -15,16 +15,16 @@ def do():
     return
 
 def check():
-    return
+    tarsCheck.do()
 
 def build():
-    return tarsBuild.do()
+    tarsBuild.do()
 
 def deploy():
-    return tarsDeploy.do()
+    tarsDeploy.do()
 
 def test():
-    return tarsTest.do()
+    tarsTest.do()
 
 if __name__ == '__main__':
     do()
