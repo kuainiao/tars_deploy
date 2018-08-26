@@ -11,11 +11,11 @@ webPort = "3000"
 def do():
     (rCode,msg) = testWeb()
     if rCode !=0:
-        return (rCode,msg)
+       raise msg
     (rCode,msg) = testFrameServer()
     if rCode !=0:
-        return (rCode,msg)
-    return (0,"")
+        raise msg
+    return
 
 def testWeb():
     return testByInterface("/pages/tree","","tarspatch")

@@ -8,12 +8,10 @@ import comm.tarsLog as tarsLog
 import comm.tarsUtil as tarsUtil
 
 def do():
-    #check()
+    check()
     #build()
     #deploy()
-    (retCode,msg) = test()
-    if retCode !=0:
-        print " deploy test fail ,{}".format(msg)
+    #test()
     return
 
 def check():

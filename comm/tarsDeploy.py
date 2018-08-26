@@ -13,14 +13,13 @@ tarsDeployFrameCommServerList = ["tarsnotify", "tarsstat", "tarsproperty", "tars
 baseDir = getBaseDir()
 def do():
     log.infoPrint("initDB start ...")
-    #initDB()
+    initDB()
     log.infoPrint("initDB success ")
     log.infoPrint("deploy frameServer start ...")
-    #deployFrameServer()
+    deployFrameServer()
     log.infoPrint("deploy frameServer success ")
     log.infoPrint("deploy web start ... ")
-    #deployWeb()
-    deployNodeWeb()
+    deployWeb()
     log.infoPrint("deploy web success")
     return
 
@@ -78,17 +77,6 @@ def startServerFrameServer():
     return
 
 def deployWeb():
-    mysqlHost = getCommProperties("mysql.host")
-    localIp = getLocalIp()
-    doCmd("sed -i 's/registry.tars.com/{}/g' /usr/local/app/resin/webapps/ROOT/WEB-INF/classes/tars.conf".format(localIp))
-    doCmd("sed -i 's/registry.tars.com/{}/g' /usr/local/app/resin/webapps/ROOT/WEB-INF/classes/app.config.properties".format(localIp))
-    doCmd("sed -i 's/db.tars.com/{}/g' /usr/local/app/resin/webapps/ROOT/WEB-INF/classes/tars.conf".format(mysqlHost))
-    doCmd("sed -i 's/db.tars.com/{}/g' /usr/local/app/resin/webapps/ROOT/WEB-INF/classes/app.config.properties".format(mysqlHost))
-    doCmd("chmod u+x /usr/local/app/resin/bin/resin.sh")
-    doCmd("/usr/local/app/resin/bin/resin.sh start")
-    return
-
-def deployNodeWeb():
     #mysqlHost = getCommProperties("mysql.host")
     #localIp = getLocalIp()
     mysqlHost = "172.16.0.17"
@@ -133,10 +121,10 @@ def initDB():
     doCmd("sed -i 's/db.tars.com/{}/g'  {}/*".format(localIp,dbDir))
     doCmd("sed -i 's/10.120.129.226/{}/g' {}/*".format(localIp,dbDir))
 
-    doCmd("mysql -utars -ptars2015 -e 'create database db_tars'")
-    doCmd("mysql -utars -ptars2015 -e 'create database tars_stat'")
-    doCmd("mysql -utars -ptars2015 -e 'create database tars_property'")
-    doCmd("mysql -utars -ptars2015 -e 'create database tars_tars_web'")
+    doCmd("mysql -utars -ptars2015 -e 'drop database if exists db_tars;create database db_tars'")
+    doCmd("mysql -utars -ptars2015 -e 'drop database if exists tars_stat;create database tars_stat'")
+    doCmd("mysql -utars -ptars2015 -e 'drop database if exists tars_property;create database tars_property'")
+    doCmd("mysql -utars -ptars2015 -e 'drop database if exists tars_tars_web;create database tars_tars_web'")
 
     doCmd("mysql -utars -ptars2015 db_tars < {}/db_tars.sql".format(dbDir))
     doCmd("mysql -utars -ptars2015 db_tars < {}/tarsconfig.sql".format(dbDir))
