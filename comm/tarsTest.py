@@ -8,7 +8,7 @@ from tarsUtil import *
 log = tarsLog.getLogger()
 #localIp = getLocalIp()
 localIp = "172.16.0.17"
-webPort = "8081"
+webPort = "8080"
 def do():
     (rCode,msg) = testRegistry()
     if rCode !=0:
@@ -34,7 +34,7 @@ def testWeb():
     return testByInterface("/pages/tree","","tarspatch")
 
 def testFrameServer():
-    frameServer = [("tarspatch","1"),("tarsconfig","2"),("tarsnotify","20"),("tarsstat","23"),("tarsproperty","25"),("tarsqueryproperty","27"),("tarsquerystat","29")]
+    frameServer = [("tarspatch","1"),("tarsconfig","2"),("tarsnotify","20"),("tarsstat","23"),("tarsproperty","250"),("tarsqueryproperty","27"),("tarsquerystat","29")]
     for (serverName,serverId) in frameServer:
         log.infoPrint("test server {} start ".format(serverName))
         (retCode,msg) = testByInterface("/pages/server/api/send_command?server_ids={}&command=tars.viewversion".format(serverId),"","succ")
@@ -54,10 +54,10 @@ def testByInterface(uri,params,indexKey):
         return (-1, "test fail,tarweb cannot visit")
     log.info(" url is {} ,statusCode is {} ,text is {} ".format(url,result.status_code,result.text))
     if(result.status_code!=200):
-        return (-1,"test fail,tarweb cannot visit")
+        return (-1,"tarweb cannot visit")
     else:
         if result.text.find(indexKey) == -1:
-            return (-1,"test fail")
+            return (-1,"return value wrong")
     return (0,"")
 
 if __name__ == '__main__':
