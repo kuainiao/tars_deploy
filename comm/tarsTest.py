@@ -39,7 +39,7 @@ def testFrameServer():
         log.infoPrint("test server {} start ".format(serverName))
         (retCode,msg) = testByInterface("/pages/server/api/send_command?server_ids={}&command=tars.viewversion".format(serverId),"","succ")
         if retCode != 0 :
-            return (retCode,msg)
+            return (retCode," server {} test faile".format(serverName))
         else:
             log.infoPrint("server {} test success ".format(serverName))
     return (0,"")
