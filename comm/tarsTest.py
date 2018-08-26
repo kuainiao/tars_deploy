@@ -31,7 +31,7 @@ def testNode():
     return (0,"")
 
 def testWeb():
-    return testByInterface("/pages/tree","","sdfdddd")
+    return testByInterface("/pages/tree","","tarspatch")
 
 def testFrameServer():
     frameServer = [("tarspatch","1"),("tarsconfig","2")]
