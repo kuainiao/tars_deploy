@@ -34,16 +34,19 @@ def testWeb():
     return testByInterface("/pages/tree","","tarspatch")
 
 def testFrameServer():
-    frameServer = [("tarspatch","1"),("tarsconfig","2")]
+    frameServer = [("tarspatch","1"),("tarsconfig","2"),("",""),("",""),("",""),("","")]
     for (serverName,serverId) in frameServer:
         print "test server {} start ".format(serverName)
+        (retCode,msg) = testByInterface("/pages/server/api/send_command?server_ids={}&command=tars.viewversion".format(serverId),"","succ")
+        if retCode != 0 :
+            return (retCode,msg)
     return (0,"")
 
 def testByInterface(uri,params,indexKey):
     url ="http://{}:{}/{}".format(localIp,webPort,uri)
     log.infoPrint(url)
     result = requests.get(url,data=params)
-    log.infoPrint(" statusCode is {} ,text is {} ".format(result.status_code,result.text))
+    log.infoPrint(" url is {} ,statusCode is {} ,text is {} ".format(url,result.status_code,result.text))
     if(result.status_code!=200):
         return (-1,"test fail,tarweb cannot visit")
     else:
