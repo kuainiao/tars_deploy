@@ -34,7 +34,7 @@ def testWeb():
     return testByInterface("/pages/tree","","tarspatch")
 
 def testFrameServer():
-    frameServer = [("tarspatch","1"),("tarsconfig","2"),("",""),("",""),("",""),("","")]
+    frameServer = [("tarspatch","1"),("tarsconfig","2"),("tarsnotify","20"),("tarsstat","23"),("tarsproperty","25"),("tarsqueryproperty","27"),("tarsquerystat","29")]
     for (serverName,serverId) in frameServer:
         print "test server {} start ".format(serverName)
         (retCode,msg) = testByInterface("/pages/server/api/send_command?server_ids={}&command=tars.viewversion".format(serverId),"","succ")
