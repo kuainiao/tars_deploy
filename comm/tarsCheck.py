@@ -20,9 +20,8 @@ def check():
     return
 
 def hasInstallServer(server):
-    (rCode,msg) = doCmd("which {}".format(server))
-    log.infoPrint(" cmd  which yum  rCode is {} ,msg is {}".format(rCode,msg))
-    if rCode == 0:
+    result = doCmdIgnoreException("which {}".format(server))
+    if result["status"] == 0:
         return True
     else:
         return False
