@@ -13,7 +13,7 @@ def do():
 def check():
     for server in checkServer:
         log.infoPrint(" check and install server {}".format(server))
-        installByYum(server)
+        installIfNotExistsByYum(server)
     return
 
 def hasInstallServer(server):
@@ -24,8 +24,9 @@ def hasInstallServer(server):
         return False
     return
 
-def installByYum(server):
-    os.system("yum install  -y {}".format(server))
+def installIfNotExistsByYum(server):
+    if hasInstallServer("yum"):
+        os.system("yum install  -y {}".format(server))
     return
 
 if __name__ == '__main__':
