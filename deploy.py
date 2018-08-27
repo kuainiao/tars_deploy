@@ -9,9 +9,9 @@ import comm.tarsUtil as tarsUtil
 
 def do():
     check()
-    #build()
-    #deploy()
-    #test()
+    build()
+    deploy()
+    test()
     return
 
 def check():
