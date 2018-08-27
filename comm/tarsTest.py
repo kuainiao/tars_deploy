@@ -11,7 +11,7 @@ webPort = "3000"
 def do():
     (rCode,msg) = testWeb()
     if rCode !=0:
-       raise msg
+       raise Exception(msg)
     (rCode,msg) = testFrameServer()
     if rCode !=0:
         raise msg
