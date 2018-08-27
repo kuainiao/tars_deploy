@@ -40,9 +40,9 @@ def testByInterface(uri,params,indexKey):
     except Exception:
         log.infoPrint(" test fail,tarsweb cannot visit")
         return (-1, "test fail,tarweb cannot visit")
-    log.info(" url is {} ,statusCode is {} ,text is {} ".format(url,result.status_code,result.text))
+    log.infoPrint(" url is {} ,statusCode is {} ,text is {} ".format(url,result.status_code,result.text))
     if(result.status_code!=200):
-        return (-1,"tarweb cannot visit")
+        return (-1,"tarsweb cannot visit")
     else:
         if result.text.find(indexKey) == -1:
             return (-1,"return value wrong")
