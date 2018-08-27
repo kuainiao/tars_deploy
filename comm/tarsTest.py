@@ -19,7 +19,7 @@ def do():
         return
 
 def testWeb():
-    return testByInterface("/pages/tree","","tarspatch")
+    return testByInterface("/pages/server/api/tree","","tarspatch")
 
 def testFrameServer():
     frameServer = [("tarspatch","1"),("tarsconfig","2"),("tarsnotify","20"),("tarsstat","23"),("tarsproperty","25"),("tarsqueryproperty","27"),("tarsquerystat","29")]
