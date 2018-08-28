@@ -77,25 +77,24 @@ def startServerFrameServer():
     return
 
 def deployWeb():
-    #mysqlHost = getCommProperties("mysql.host")
-    #localIp = getLocalIp()
-    mysqlHost = "172.16.0.17"
-    localIp = "172.16.0.17"
+    mysqlHost = getCommProperties("mysql.host")
+    localIp = getLocalIp()
     result = doCmdIgnoreException("source ~/.bashrc;nvm --version")
     if result["status"] != 0:
         log.infoPrint("install nvm start...")
         doCmd("wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash")
+        doCmd("export NVM_DIR=\"$HOME/.nvm\";[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\";")
         log.infoPrint("install nvm success")
     else:
         log.infoPrint("nvm version  is {}".format(result["output"]))
-    result = doCmdIgnoreException("source ~/.bashrc;node --version")
+    result = doCmdIgnoreException("node --version")
     if result["status"] != 0:
         log.infoPrint("install node start...")
-        doCmd("source ~/.bashrc; nvm install v8.11.3")
+        doCmd("nvm install v8.11.3")
         log.infoPrint("install node success")
     else:
         log.infoPrint("node version  is {}".format(result["output"]))
-    result = doCmdIgnoreException("source ~/.bashrc;pm2 --version")
+    result = doCmdIgnoreException("pm2 --version")
     if result["status"] != 0:
         doCmd("source ~/.bashrc;npm install -g pm2 --registry=https://registry.npm.taobao.org")
     else:
@@ -103,7 +102,7 @@ def deployWeb():
     copytree("{}/web".format(baseDir), "/usr/local/app/web")
     doCmd("sed -i 's/registry.tars.com/{}/g' /usr/local/app/web/config/tars.conf".format(localIp))
     doCmd("sed -i 's/db.tars.com/{}/g' /usr/local/app/web/config/webConf.js".format(mysqlHost))
-    doCmd("cd /usr/local/app/web;source ~/.bashrc;npm install --registry=https://registry.npm.taobao.org;npm run prd")
+    doCmd("cd /usr/local/app/web;npm install --registry=https://registry.npm.taobao.org;npm run prd")
     return
 
 def initDB():
