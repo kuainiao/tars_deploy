@@ -79,7 +79,7 @@ def startServerFrameServer():
 def deployWeb():
     mysqlHost = getCommProperties("mysql.host")
     localIp = getLocalIp()
-    result = doCmdIgnoreException("source ~/.bashrc;nvm --version")
+    result = doCmdIgnoreException("nvm --version")
     if result["status"] != 0:
         log.infoPrint("install nvm start...")
         doCmd("wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash")
