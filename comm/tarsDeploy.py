@@ -123,7 +123,7 @@ def initDB():
     doCmd("mysql -utars -ptars2015 -e 'drop database if exists db_tars;create database db_tars'")
     doCmd("mysql -utars -ptars2015 -e 'drop database if exists tars_stat;create database tars_stat'")
     doCmd("mysql -utars -ptars2015 -e 'drop database if exists tars_property;create database tars_property'")
-    doCmd("mysql -utars -ptars2015 -e 'drop database if exists tars_tars_web;create database tars_tars_web'")
+    doCmd("mysql -utars -ptars2015 -e 'drop database if exists db_tars_web;create database db_tars_web'")
 
     doCmd("mysql -utars -ptars2015 db_tars < {}/db_tars.sql".format(dbDir))
     doCmd("mysql -utars -ptars2015 db_tars < {}/tarsconfig.sql".format(dbDir))
