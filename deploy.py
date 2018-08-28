@@ -8,9 +8,9 @@ import comm.tarsLog as tarsLog
 import comm.tarsUtil as tarsUtil
 
 def do():
-    #check()
-    #build()
-    #deploy()
+    check()
+    build()
+    deploy()
     test()
     return
 
