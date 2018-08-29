@@ -4,8 +4,6 @@ import comm.tarsBuild as tarsBuild
 import comm.tarsCheck as tarsCheck
 import comm.tarsDeploy as tarsDeploy
 import comm.tarsTest as tarsTest
-import comm.tarsLog as tarsLog
-import comm.tarsUtil as tarsUtil
 
 def do():
     #check()
@@ -27,5 +25,7 @@ def test():
     tarsTest.do()
 
 if __name__ == '__main__':
-    do()
+    param =  sys.argv[1]
+    print param
+    #do()
     pass
