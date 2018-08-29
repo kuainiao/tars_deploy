@@ -7,6 +7,7 @@ import comm.tarsDeploy as tarsDeploy
 import comm.tarsTest as tarsTest
 
 def do():
+    print len(sys.argv)
     if len(sys.argv)==1:
         help()
         return
