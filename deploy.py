@@ -13,14 +13,17 @@ def do():
     param =  sys.argv[1]
     if "all" == param:
         print "all"
-    if "check"== param:
+    elif "check"== param:
         print "check"
-    if "build" == param:
+    elif "build" == param:
         print "build"
-    if "deploy" ==  param:
+    elif "deploy" ==  param:
         print "deploy"
-    if "test" == param:
+    elif "test" == param:
         print "test"
+    else:
+        paramError
+        return
     #check()
     #build()
     #deploy()
@@ -43,6 +46,12 @@ def test():
 def help():
     print "help:"
     return
+
+def paramError():
+    print "param error!"
+    help()
+    return
+
 
 if __name__ == '__main__':
     do()
