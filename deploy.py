@@ -12,22 +12,21 @@ def do():
         return
     param =  sys.argv[1]
     if "all" == param:
-        print "all"
+        check()
+        build()
+        deploy()
+        test()
     elif "check"== param:
-        print "check"
+        check()
     elif "build" == param:
-        print "build"
+        build()
     elif "deploy" ==  param:
-        print "deploy"
+        deploy()
     elif "test" == param:
-        print "test"
+        test()
     else:
         paramError()
         return
-    #check()
-    #build()
-    #deploy()
-    #test()
     return
 
 def check():
@@ -52,6 +51,9 @@ Parameter:
     build : build the code to get binary file
     deploy : deploy the frame ,you must run the command build to get  binary file
     test :  test if all the server are ok
+Attention:
+    1.support with python 2.7
+    2.network unobstructed
     '''
     print helpMsg
     return
