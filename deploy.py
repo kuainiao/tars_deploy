@@ -22,7 +22,7 @@ def do():
     elif "test" == param:
         print "test"
     else:
-        paramError
+        paramError()
         return
     #check()
     #build()
