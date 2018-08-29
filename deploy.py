@@ -13,13 +13,13 @@ def do():
     param =  sys.argv[1]
     if "all" == param:
         print "all"
-    else if "check"== param:
+    if "check"== param:
         print "check"
-    else if "build" == param:
+    if "build" == param:
         print "build"
-    else if "deploy" ==  param:
+    if "deploy" ==  param:
         print "deploy"
-    else if "test" == param:
+    if "test" == param:
         print "test"
     #check()
     #build()
