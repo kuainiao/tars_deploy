@@ -59,7 +59,7 @@ Attention:
     return
 
 def paramError():
-    print "param error!"
+    print "param error! only supprot: all,check,build,deploy or test ."
     help()
     return
 
