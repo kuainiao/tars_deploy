@@ -45,12 +45,13 @@ def test():
 
 def help():
     helpMsg = '''This script is used to deploy tars frame
-    Parameter:
-        all : check the environment,build the code ,deploy and test
-        check : check the environment
-        build : build the code to get binary file
-        deploy : deploy the frame ,you must run the command build to get  binary file
-        test :  test if all the server are ok
+Usage: $0 Receiver Message [other]
+Parameter:
+    all : check the environment,build the code ,deploy and test
+    check : check the environment
+    build : build the code to get binary file
+    deploy : deploy the frame ,you must run the command build to get  binary file
+    test :  test if all the server are ok
     '''
     print helpMsg
     return
