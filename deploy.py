@@ -7,10 +7,16 @@ import comm.tarsDeploy as tarsDeploy
 import comm.tarsTest as tarsTest
 
 def do():
+    if len(sys.argv)==1:
+        help()
+        return
+    param =  sys.argv[1]
+    print param
+
     #check()
     #build()
-    deploy()
-    test()
+    #deploy()
+    #test()
     return
 
 def check():
@@ -25,8 +31,11 @@ def deploy():
 def test():
     tarsTest.do()
 
+
+def help():
+    print "help:"
+    return
+
 if __name__ == '__main__':
-    param =  sys.argv[1]
-    print param
-    #do()
+    do()
     pass
