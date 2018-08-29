@@ -34,7 +34,7 @@ def testFrameServer():
 
 def testByInterface(uri,params,indexKey):
     url ="http://{}:{}/{}".format(localIp,webPort,uri)
-    log.info(url)
+    log.infoPrint(url)
     try:
         result = requests.get(url,data=params)
     except Exception:
