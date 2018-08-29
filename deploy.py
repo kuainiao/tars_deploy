@@ -7,13 +7,20 @@ import comm.tarsDeploy as tarsDeploy
 import comm.tarsTest as tarsTest
 
 def do():
-    print len(sys.argv)
     if len(sys.argv)==1:
         help()
         return
     param =  sys.argv[1]
-    print param
-
+    if "all" == param:
+        print "all"
+    else if "check"== param:
+        print "check"
+    else if "build" == param:
+        print "build"
+    else if "deploy" ==  param:
+        print "deploy"
+    else if "test" == param:
+        print "test"
     #check()
     #build()
     #deploy()
