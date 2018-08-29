@@ -44,8 +44,7 @@ def test():
 
 
 def help():
-    helpMsg = '''
-    This script is used to deploy tars frame
+    helpMsg = '''This script is used to deploy tars frame
     Parameter:
         all : check the environment,build the code ,deploy and test
         check : check the environment
