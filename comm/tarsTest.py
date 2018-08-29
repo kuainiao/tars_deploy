@@ -34,13 +34,13 @@ def testFrameServer():
 
 def testByInterface(uri,params,indexKey):
     url ="http://{}:{}/{}".format(localIp,webPort,uri)
-    log.infoPrint(url)
+    log.info(url)
     try:
         result = requests.get(url,data=params)
     except Exception:
         log.infoPrint(" test fail,tarsweb cannot visit")
         return (-1, "tarweb cannot visit")
-    log.info(" url is {} ,statusCode is {} ,text is {} ".format(url,result.status_code,result.text))
+    log.infoPrint(" url is {} ,statusCode is {} ,text is {} ".format(url,result.status_code,result.text))
     if(result.status_code!=200):
         return (-1,"tarweb cannot visit")
     else:
