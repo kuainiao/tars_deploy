@@ -33,7 +33,7 @@ def testFrameServer():
     return (0,"")
 
 def testByInterface(uri,params,indexKey):
-    url ="http://{}:{}/{}".format(localIp,webPort,uri)
+    url ="http://{}:{}{}".format(localIp,webPort,uri)
     log.info(url)
     try:
         result = requests.get(url,data=params)
