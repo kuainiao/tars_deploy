@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # encoding: utf-8
+import sys
 import comm.tarsBuild as tarsBuild
 import comm.tarsCheck as tarsCheck
 import comm.tarsDeploy as tarsDeploy
