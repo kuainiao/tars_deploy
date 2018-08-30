@@ -108,7 +108,7 @@ def deployNodeJsEnvironmentSuse():
     result = doCmdIgnoreException("nvm --version")
     if result["status"] != 0:
         log.infoPrint("install nvm start...")
-        doCmd("wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash && export NVM_DIR=\"$HOME/.nvm\";[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\";source /etc/profile ")
+        doCmd("wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash ")
         #os.system("export NVM_DIR=\"$HOME/.nvm\";[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\";source /etc/profile")
         log.infoPrint("install nvm success")
     else:
@@ -116,7 +116,7 @@ def deployNodeJsEnvironmentSuse():
     result = doCmdIgnoreException("node --version")
     if result["status"] != 0:
         log.infoPrint("install node start...")
-        doCmd("nvm install v8.11.3")
+        doCmd(" export NVM_DIR=\"$HOME/.nvm\";[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\";source /etc/profile && nvm install v8.11.3")
         log.infoPrint("install node success")
     else:
         log.infoPrint("node version  is {}".format(result["output"]))
