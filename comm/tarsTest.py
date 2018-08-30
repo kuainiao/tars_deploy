@@ -16,8 +16,9 @@ def do():
     (rCode,msg) = testFrameServer()
     if rCode !=0:
         log.infoPrint(msg)
-    print " test success!"
         return
+    print " test success!"
+
 
 def testWeb():
     return testByInterface("/pages/server/api/tree","","tarspatch")
