@@ -18,11 +18,8 @@ def do():
     log.infoPrint("deploy frameServer start ...")
     #deployFrameServer()
     log.infoPrint("deploy frameServer success ")
-    log.infoPrint("deploy NodeJs environment start ...")
-    deployNodeJsEnvironment()
-    log.infoPrint("deploy NodeJs environment success ...")
     log.infoPrint("deploy web start ... ")
-    #deployWeb()
+    deployWeb()
     log.infoPrint("deploy web success")
     return
 
@@ -70,17 +67,6 @@ def updateConf(server):
     doCmd("sed -i 's/10.120.129.226/{}/g' `find /usr/local/app/tars -name *.conf`".format(localIp))
     return
 
-def deployNodeJsEnvironment():
-    if isSuse():
-        deployNodeJsEnvironmentSuse()
-    elif isCentos():
-        deployNodeJsEnvironmentSuse()
-    elif isUbuntu():
-        deployNodeJsEnvironmentUbuntu()
-    else:
-        raise Exception(" platform error only support  suse ,centos ,ubuntu .")
-    return
-
 def deployNodeJsEnvironmentCentos():
     result = doCmdIgnoreException("source ~/.bashrc;nvm --version")
     if result["status"] != 0:
@@ -105,11 +91,21 @@ def deployNodeJsEnvironmentCentos():
     return
 
 def deployNodeJsEnvironmentSuse():
+
+    return
+
+def deployNodeJsEnvironmentUbuntu():
+    print  "Ubuntu  .........................."
+    return
+
+
+def deployWeb():
+    mysqlHost = getCommProperties("mysql.host")
+    localIp = getLocalIp()
     result = doCmdIgnoreException("nvm --version")
     if result["status"] != 0:
         log.infoPrint("install nvm start...")
         doCmd("wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash ")
-        #os.system("export NVM_DIR=\"$HOME/.nvm\";[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\";source /etc/profile")
         log.infoPrint("install nvm success")
     else:
         log.infoPrint("nvm version  is {}".format(result["output"]))
@@ -122,19 +118,9 @@ def deployNodeJsEnvironmentSuse():
         log.infoPrint("node version  is {}".format(result["output"]))
     result = doCmdIgnoreException("pm2 --version")
     if result["status"] != 0:
-        doCmd(" export NVM_DIR=\"$HOME/.nvm\";[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\";source /etc/profile &&  npm install -g pm2 --registry=https://registry.npm.taobao.org")
+        doCmd("export NVM_DIR=\"$HOME/.nvm\";[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\";source /etc/profile &&  npm install -g pm2 --registry=https://registry.npm.taobao.org")
     else:
-        log.infoPrint("export NVM_DIR=\"$HOME/.nvm\";[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\";source /etc/profile &&  pm2 version  is {}".format(result["output"]))
-    return
-
-def deployNodeJsEnvironmentUbuntu():
-    print  "Ubuntu  .........................."
-    return
-
-
-def deployWeb():
-    mysqlHost = getCommProperties("mysql.host")
-    localIp = getLocalIp()
+        log.infoPrint(" pm2 version  is {}".format(result["output"]))
     copytree("{}/web".format(baseDir), "/usr/local/app/web")
     doCmd("sed -i 's/registry.tars.com/{}/g' /usr/local/app/web/config/tars.conf".format(localIp))
     doCmd("sed -i 's/db.tars.com/{}/g' /usr/local/app/web/config/webConf.js".format(mysqlHost))
