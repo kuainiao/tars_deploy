@@ -24,6 +24,7 @@ def getLocalIp():
     return getIpAddress("eth0")
 
 def isUbunt():
+    print platformStr
     return platformStr.find("ubunt") > -1
 
 
