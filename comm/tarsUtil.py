@@ -8,8 +8,10 @@ import socket
 import fcntl
 import struct
 import os
+import platform
 from distutils.dir_util import copy_tree
 log = tarsLog.getLogger()
+platformStr = platform.platform()
 def getIpAddress(ifname):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     return socket.inet_ntoa(fcntl.ioctl(
@@ -20,6 +22,11 @@ def getIpAddress(ifname):
 
 def getLocalIp():
     return getIpAddress("eth0")
+
+def isUbunt():
+    return paltformStr.find("ubunt") > -1
+
+
 
 def getBaseDir():
     cwd = os.getcwd()
