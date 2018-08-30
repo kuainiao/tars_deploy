@@ -16,6 +16,7 @@ def do():
     (rCode,msg) = testFrameServer()
     if rCode !=0:
         log.infoPrint(msg)
+    print " test success!"
         return
 
 def testWeb():
@@ -42,7 +43,7 @@ def testByInterface(uri,params,indexKey):
     except Exception:
         log.infoPrint(" test fail,tarsweb cannot visit")
         return (-1, "tarweb cannot visit")
-    log.infoPrint(" url is {} ,statusCode is {} ,text is {} ".format(url,result.status_code,result.text))
+    log.info(" url is {} ,statusCode is {} ,text is {} ".format(url,result.status_code,result.text))
     if(result.status_code!=200):
         return (-1,"tarweb cannot visit")
     else:
