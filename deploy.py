@@ -5,7 +5,7 @@ import comm.tarsBuild as tarsBuild
 import comm.tarsCheck as tarsCheck
 import comm.tarsDeploy as tarsDeploy
 import comm.tarsTest as tarsTest
-from tarsUtil import *
+from comm.tarsUtil import *
 def do():
     if len(sys.argv)==1:
         help()
