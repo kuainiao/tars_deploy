@@ -74,7 +74,7 @@ def deployNodeJsEnvironment():
     if isSuse():
         deployNodeJsEnvironmentSuse()
     elif isCentos():
-        deployNodeJsEnvironmentCentos()
+        deployNodeJsEnvironmentSuse()
     elif isUbuntu():
         deployNodeJsEnvironmentUbuntu()
     else:
@@ -138,7 +138,7 @@ def deployWeb():
     copytree("{}/web".format(baseDir), "/usr/local/app/web")
     doCmd("sed -i 's/registry.tars.com/{}/g' /usr/local/app/web/config/tars.conf".format(localIp))
     doCmd("sed -i 's/db.tars.com/{}/g' /usr/local/app/web/config/webConf.js".format(mysqlHost))
-    doCmd("cd /usr/local/app/web;source ~/.bashrc;npm install --registry=https://registry.npm.taobao.org;npm run prd")
+    doCmd("cd /usr/local/app/web;export NVM_DIR=\"$HOME/.nvm\";[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\";source /etc/profile && npm install --registry=https://registry.npm.taobao.org;npm run prd")
     return
 
 def initDB():
