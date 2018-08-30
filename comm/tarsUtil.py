@@ -23,11 +23,14 @@ def getIpAddress(ifname):
 def getLocalIp():
     return getIpAddress("eth0")
 
-def isUbunt():
-    print platformStr
-    return platformStr.find("ubunt") > -1
+def isUbuntu():
+    return platformStr.lower().find("ubuntu") > -1
 
+def isCentos():
+    return platformStr.lower().find("centos") > -1
 
+def isSuse():
+    return platformStr.lower().find("suse") > -1
 
 def getBaseDir():
     cwd = os.getcwd()

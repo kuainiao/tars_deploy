@@ -65,7 +65,7 @@ def paramError():
 
 
 def unitTest():
-    print isUbunt()
+    print isUbuntu()
     return
 
 
