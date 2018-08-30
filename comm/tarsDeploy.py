@@ -13,13 +13,16 @@ tarsDeployFrameCommServerList = ["tarsnotify", "tarsstat", "tarsproperty", "tars
 baseDir = getBaseDir()
 def do():
     log.infoPrint("initDB start ...")
-    initDB()
+    #initDB()
     log.infoPrint("initDB success ")
     log.infoPrint("deploy frameServer start ...")
-    deployFrameServer()
+    #deployFrameServer()
     log.infoPrint("deploy frameServer success ")
+    log.infoPrint("deploy NodeJs environment start ...")
+    deployNodeJsEnvironment()
+    log.infoPrint("deploy NodeJs environment success ...")
     log.infoPrint("deploy web start ... ")
-    deployWeb()
+    #deployWeb()
     log.infoPrint("deploy web success")
     return
 
@@ -67,18 +70,19 @@ def updateConf(server):
     doCmd("sed -i 's/10.120.129.226/{}/g' `find /usr/local/app/tars -name *.conf`".format(localIp))
     return
 
-def copyFile4FrameServer():
+def deployNodeJsEnvironment():
+    if isSuse():
+        deployNodeJsEnvironmentSuse()
+    elif isCentos():
+        deployNodeJsEnvironmentCentos()
+    elif isUbuntu():
+        deployNodeJsEnvironmentUbuntu()
     return
 
-def replaceConfig4FrameServer():
+def deployNodeJsEnvironmentCentos():
     return
 
-def startServerFrameServer():
-    return
-
-def deployWeb():
-    mysqlHost = getCommProperties("mysql.host")
-    localIp = getLocalIp()
+def deployNodeJsEnvironmentSuse():
     result = doCmdIgnoreException("source ~/.bashrc;nvm --version")
     if result["status"] != 0:
         log.infoPrint("install nvm start...")
@@ -99,6 +103,15 @@ def deployWeb():
         doCmd("source ~/.bashrc;npm install -g pm2 --registry=https://registry.npm.taobao.org")
     else:
         log.infoPrint("pm2 version  is {}".format(result["output"]))
+    return
+
+def deployNodeJsEnvironmentUbuntu():
+    return
+
+
+def deployWeb():
+    mysqlHost = getCommProperties("mysql.host")
+    localIp = getLocalIp()
     copytree("{}/web".format(baseDir), "/usr/local/app/web")
     doCmd("sed -i 's/registry.tars.com/{}/g' /usr/local/app/web/config/tars.conf".format(localIp))
     doCmd("sed -i 's/db.tars.com/{}/g' /usr/local/app/web/config/webConf.js".format(mysqlHost))
