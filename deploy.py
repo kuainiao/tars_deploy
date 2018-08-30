@@ -70,5 +70,5 @@ def unitTest():
 
 
 if __name__ == '__main__':
-    do()
+    unitTest()
     pass
