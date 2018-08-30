@@ -77,9 +77,12 @@ def deployNodeJsEnvironment():
         deployNodeJsEnvironmentCentos()
     elif isUbuntu():
         deployNodeJsEnvironmentUbuntu()
+    else:
+        raise Exception(" platform error only support  suse ,centos ,ubuntu .")
     return
 
 def deployNodeJsEnvironmentCentos():
+    print "contos  .........................."
     return
 
 def deployNodeJsEnvironmentSuse():
@@ -106,6 +109,7 @@ def deployNodeJsEnvironmentSuse():
     return
 
 def deployNodeJsEnvironmentUbuntu():
+    print  "Ubuntu  .........................."
     return
 
 
