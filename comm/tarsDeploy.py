@@ -122,9 +122,9 @@ def deployNodeJsEnvironmentSuse():
         log.infoPrint("node version  is {}".format(result["output"]))
     result = doCmdIgnoreException("pm2 --version")
     if result["status"] != 0:
-        doCmd("npm install -g pm2 --registry=https://registry.npm.taobao.org")
+        doCmd(" export NVM_DIR=\"$HOME/.nvm\";[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\";source /etc/profile &&  npm install -g pm2 --registry=https://registry.npm.taobao.org")
     else:
-        log.infoPrint("pm2 version  is {}".format(result["output"]))
+        log.infoPrint("export NVM_DIR=\"$HOME/.nvm\";[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\";source /etc/profile &&  pm2 version  is {}".format(result["output"]))
     return
 
 def deployNodeJsEnvironmentUbuntu():
