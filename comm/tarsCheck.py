@@ -11,9 +11,6 @@ def do():
     return
 
 def check():
-    if not hasInstallServer("yum"):
-        log.infoPrint("yum cannot work,please check it .")
-        return
     for server in checkServer:
         log.infoPrint(" check and install server {}".format(server))
         installIfNotExistsByYum(server)
@@ -27,7 +24,14 @@ def hasInstallServer(server):
         return False
 
 def installIfNotExistsByYum(server):
-    os.system("yum install  -y {}".format(server))
+    if isCentos():
+        os.system("yum install  -y {}".format(server))
+    elif isSuse():
+        os.system("zypper install  -y {}".format(server))
+    elif isUbuntu():
+        os.system("apt-get install  -y {}".format(server))
+    else:
+        raise Exception("ERROR ,NO SUPPORT THIS PLATFORM ,ONLY SUPPORT CENTOS ,SUSE ,UBUNTU .")
     return
 
 if __name__ == '__main__':

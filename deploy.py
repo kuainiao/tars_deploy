@@ -68,7 +68,6 @@ def unitTest():
     print isUbuntu()
     return
 
-
 if __name__ == '__main__':
-    deploy()
+    check()
     pass
