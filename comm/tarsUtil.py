@@ -86,7 +86,7 @@ def replaceConf(fileName,oldStr,newStr):
 def replaceConfDir(filePath,oldStr,newStr):
     for root, dirs, files in os.walk(filePath):
         for file in files:
-            print root ,dirs ,file 
+            print os.path.join(root,file)
     return
 
 
