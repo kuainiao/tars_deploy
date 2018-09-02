@@ -70,5 +70,5 @@ def unitTest():
     return
 
 if __name__ == '__main__':
-    check()
+    replaceConf("/data/test.conf","abc","ddd")
     pass

@@ -72,6 +72,18 @@ def getCommProperties(paramsKey):
     value = cf.get('tarscomm', paramsKey)
     return value
 
+def replaceConf(fileName,oldStr,newStr):
+    oldData =""
+    with open(fileName, "r", encoding="utf-8") as f:
+        for line in f:
+            if oldStr in line:
+                line = line.replace(oldStr, newStr)
+            oldData += line
+    with open(fileName, "w", encoding="utf-8") as f:
+        f.write(oldData)
+    return
+
+
 if __name__ == '__main__':
     print(getIpAddress("eth0"))
     pass
