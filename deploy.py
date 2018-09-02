@@ -70,5 +70,5 @@ def unitTest():
     return
 
 if __name__ == '__main__':
-    replaceConfDir("/data","abc","ddd")
+    replaceConfDir("/data/Tars_add","abc","ddd")
     pass
