@@ -70,5 +70,5 @@ def unitTest():
     return
 
 if __name__ == '__main__':
-    replaceConf("/data/test.conf","abc","ddd")
+    replaceConfDir("/data","abc","ddd")
     pass

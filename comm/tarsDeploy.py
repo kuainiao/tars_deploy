@@ -58,13 +58,12 @@ def deployFrameServer():
 def updateConf(server):
     mysqlHost = getCommProperties("mysql.host")
     localIp = getLocalIp()
-    doCmd("sed -i 's/localip.tars.com/{}/g' `find /usr/local/app/tars -name *.conf`".format(localIp))
-    doCmd("sed -i 's/192.168.2.131/{}/g' `find /usr/local/app/tars -name *.conf`".format(localIp))
-    doCmd("sed -i 's/db.tars.com/{}/g' `find /usr/local/app/tars -name *.conf`".format(mysqlHost))
-    doCmd("sed -i 's/registry.tars.com/{}/g' `find /usr/local/app/tars -name *.conf`".format(localIp))
-    doCmd("sed -i 's/registry.tars.com/{}/g' `find /usr/local/app/tars -name '*.sh'`".format(localIp))
-    doCmd("sed -i 's/web.tars.com/{}/g' `find /usr/local/app/tars -name *.conf`".format(localIp))
-    doCmd("sed -i 's/10.120.129.226/{}/g' `find /usr/local/app/tars -name *.conf`".format(localIp))
+    replaceConf("/usr/local/app/tars/{}/conf/tars.{}.config.conf".format(server,server),"localip.tars.com",localIp)
+    replaceConf("/usr/local/app/tars/{}/conf/tars.{}.config.conf".format(server, server), "192.168.2.131", localIp)
+    replaceConf("/usr/local/app/tars/{}/conf/tars.{}.config.conf".format(server, server), "db.tars.com1", mysqlHost)
+    replaceConf("/usr/local/app/tars/{}/conf/tars.{}.config.conf".format(server, server), "registry.tars.com", localIp)
+    replaceConf("/usr/local/app/tars/{}/conf/tars.{}.config.conf".format(server, server), "10.120.129.226", localIp)
+    replaceConf("/usr/local/app/tars/{}/util/start.sh".format(server, server), "registry.tars.com", localIp)
     return
 
 def deployNodeJsEnvironmentSuse():
@@ -99,8 +98,10 @@ def deployWeb():
     else:
         log.infoPrint(" pm2 version  is {}".format(result["output"]))
     copytree("{}/web".format(baseDir), "/usr/local/app/web")
-    doCmd("sed -i 's/registry.tars.com/{}/g' /usr/local/app/web/config/tars.conf".format(localIp))
-    doCmd("sed -i 's/db.tars.com/{}/g' /usr/local/app/web/config/webConf.js".format(mysqlHost))
+
+    replaceConf("/usr/local/app/web/config/tars.conf", "registry.tars.com", localIp)
+    replaceConf("/usr/local/app/web/config/webConf.js", "db.tars.com", mysqlHost)
+
     doCmd("cd /usr/local/app/web;export NVM_DIR=\"$HOME/.nvm\";[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\";source /etc/profile && npm install --registry=https://registry.npm.taobao.org;npm run prd")
     return
 
@@ -113,6 +114,14 @@ def initDB():
     log.info(" dbDir is{} , mysqlHost is {} , mysqlPort is {} mysqlRootPassWord is {} ,localIp is {} ".format(dbDir,mysqlHost,mysqlPort,mysqlRootPassWord,localIp))
     doCmd("mysql -uroot -p{}  -e \"grant all on *.* to 'tars'@'%' identified by 'tars2015' with grant option;flush privileges;\"".format(mysqlRootPassWord))
     log.info(" the mysqlHost is {} , mysqlPort is {},  mysqlRootPassWord is {}".format(mysqlHost,mysqlPort,mysqlRootPassWord))
+
+    replaceConf("{}/db_tars.sql".format(dbDir), "192.168.2.131", localIp)
+    replaceConf("{}/db_tars.sql".format(dbDir), "db.tars.com", localIp)
+
+    replaceConf(dbDir, "192.168.2.131", localIp)
+    replaceConf(dbDir, "db.tars.com", localIp)
+    replaceConf(dbDir, "10.120.129.226", localIp)
+
     doCmd("sed -i 's/192.168.2.131/{}/g' {}/db_tars.sql".format(localIp,dbDir))
     doCmd("sed -i 's/db.tars.com/{}/g' {}/db_tars.sql".format(localIp,dbDir))
     doCmd("sed -i 's/192.168.2.131/{}/g'  {}/*".format(localIp,dbDir))

@@ -83,6 +83,12 @@ def replaceConf(fileName,oldStr,newStr):
         f.write(oldData)
     return
 
+def replaceConfDir(filePath,oldStr,newStr):
+    for root, dirs, files in os.walk(filePath):
+        print files
+    return
+
+
 
 if __name__ == '__main__':
     print(getIpAddress("eth0"))
