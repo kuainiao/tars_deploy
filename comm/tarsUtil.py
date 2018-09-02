@@ -73,7 +73,7 @@ def getCommProperties(paramsKey):
     return value
 
 def replaceConf(fileName,oldStr,newStr):
-    if not os.path.isfile(fileName)
+    if not os.path.isfile(fileName):
         print "{} is not a file ".format(fileName)
         return
     oldData =""
@@ -87,8 +87,9 @@ def replaceConf(fileName,oldStr,newStr):
     return
 
 def replaceConfDir(filePath,oldStr,newStr):
-    if not os.path.isdir(filePath)
+    if not os.path.isdir(filePath):
         print "{} is not a dir ".format(filePath)
+        return
     for root, dirs, files in os.walk(filePath):
         for file in files:
             replaceConf(os.path.join(root,file),oldStr,newStr)
