@@ -118,15 +118,10 @@ def initDB():
     replaceConf("{}/db_tars.sql".format(dbDir), "192.168.2.131", localIp)
     replaceConf("{}/db_tars.sql".format(dbDir), "db.tars.com", localIp)
 
-    replaceConf(dbDir, "192.168.2.131", localIp)
-    replaceConf(dbDir, "db.tars.com", localIp)
-    replaceConf(dbDir, "10.120.129.226", localIp)
+    replaceConfDir(dbDir, "192.168.2.131", localIp)
+    replaceConfDir(dbDir, "db.tars.com", localIp)
+    replaceConfDir(dbDir, "10.120.129.226", localIp)
 
-    doCmd("sed -i 's/192.168.2.131/{}/g' {}/db_tars.sql".format(localIp,dbDir))
-    doCmd("sed -i 's/db.tars.com/{}/g' {}/db_tars.sql".format(localIp,dbDir))
-    doCmd("sed -i 's/192.168.2.131/{}/g'  {}/*".format(localIp,dbDir))
-    doCmd("sed -i 's/db.tars.com/{}/g'  {}/*".format(localIp,dbDir))
-    doCmd("sed -i 's/10.120.129.226/{}/g' {}/*".format(localIp,dbDir))
 
     doCmd("mysql -utars -ptars2015 -e 'drop database if exists db_tars;create database db_tars'")
     doCmd("mysql -utars -ptars2015 -e 'drop database if exists tars_stat;create database tars_stat'")
