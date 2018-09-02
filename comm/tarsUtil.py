@@ -74,12 +74,12 @@ def getCommProperties(paramsKey):
 
 def replaceConf(fileName,oldStr,newStr):
     oldData =""
-    with open(fileName, "r", encoding="utf-8") as f:
+    with open(fileName, "r") as f:
         for line in f:
             if oldStr in line:
                 line = line.replace(oldStr, newStr)
             oldData += line
-    with open(fileName, "w", encoding="utf-8") as f:
+    with open(fileName, "w") as f:
         f.write(oldData)
     return
 
