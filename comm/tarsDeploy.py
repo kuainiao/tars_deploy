@@ -115,9 +115,6 @@ def initDB():
     doCmd("mysql -uroot -p{}  -e \"grant all on *.* to 'tars'@'%' identified by 'tars2015' with grant option;flush privileges;\"".format(mysqlRootPassWord))
     log.info(" the mysqlHost is {} , mysqlPort is {},  mysqlRootPassWord is {}".format(mysqlHost,mysqlPort,mysqlRootPassWord))
 
-    replaceConf("{}/db_tars.sql".format(dbDir), "192.168.2.131", localIp)
-    replaceConf("{}/db_tars.sql".format(dbDir), "db.tars.com", localIp)
-
     replaceConfDir(dbDir, "192.168.2.131", localIp)
     replaceConfDir(dbDir, "db.tars.com", localIp)
     replaceConfDir(dbDir, "10.120.129.226", localIp)
