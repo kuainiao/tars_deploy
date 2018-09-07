@@ -66,15 +66,6 @@ def updateConf(server):
     replaceConf("/usr/local/app/tars/{}/util/start.sh".format(server, server), "registry.tars.com", localIp)
     return
 
-def deployNodeJsEnvironmentSuse():
-
-    return
-
-def deployNodeJsEnvironmentUbuntu():
-    print  "Ubuntu  .........................."
-    return
-
-
 def deployWeb():
     mysqlHost = getCommProperties("mysql.host")
     localIp = getLocalIp()
@@ -134,6 +125,7 @@ def initDB():
     doCmd("mysql -utars -ptars2015 db_tars < {}/tarsquerystat.sql".format(dbDir))
     doCmd("mysql -utars -ptars2015 db_tars < {}/tarsstat.sql".format(dbDir))
     doCmd("mysql -utars -ptars2015 db_tars < {}/tarsnotify.sql".format(dbDir))
+    doCmd("mysql -utars -ptars2015 db_tars_web < {}/t_tars_files.sql".format(dbDir))
     return
 
 if __name__ == '__main__':
