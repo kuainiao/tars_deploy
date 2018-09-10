@@ -70,7 +70,5 @@ def unitTest():
     return
 
 if __name__ == '__main__':
-    replaceConfDir("/data/test","192.168.2.131", "172.16.0.2")
-    replaceConfDir("/data/test", "db.tars.com", "172.16.0.2")
-    replaceConfDir("/data/test", "10.120.129.226", "172.16.0.2")
+    do()
     pass
